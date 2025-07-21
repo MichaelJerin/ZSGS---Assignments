@@ -1,0 +1,230 @@
+// Day -> 1
+
+import java.util.*;
+
+// 1. Write a code to illustrate the various scope of variables(static, local, instance, block, final variables)?
+
+class Variables {
+	static int a = 10;
+	int c = 13; 
+	public static void main(String[] args) {
+		int f = 11;
+		final int e = 1;
+
+		Variables v = new Variables();
+		System.out.println("Local variables : " + f);
+
+		 if(e == 1) {
+			int d = 23;
+			System.out.println("Block variables : " + d);
+		}
+
+		System.out.println("Static variables : " + Variables.a);		
+		check();
+		System.out.println("Instance variables : " + v.c);
+
+		System.out.println("Final variables :" + e);
+		
+	}
+
+	static void check() {
+		int b = 7;
+		System.out.println("function variables : " + b);	
+	}
+}
+
+
+// 2. Write a program in which, declare all data types like integer, double, float, long integer, character and byte data and print them.
+
+class Datatyp {
+	public static void main(String[] args) {
+		int a = 10;
+		System.out.println("Integer : " + a);
+		double b = 93.34879809654;
+		System.out.println("Double : " + b);
+		float c = 12.368968f;
+		System.out.println("Float : " + c);
+		long d =  988754433455l;
+		System.out.println("Long : " + d);
+		char e = 'c';
+		System.out.println("Character : " + e);
+		byte f = 100;
+		System.out.println("Byte : " + f);
+	}
+}
+
+
+// 3. Write a program to find the maximum of two numbers using ternary operator.
+
+class Maximum {
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+
+		int a = in.nextInt();
+		int b = in.nextInt();
+		
+		System.out.println();
+		System.out.println((a > b)? a : b);
+	}
+}	
+
+// 4. Write a program to check whether the given two numbers are equal or not w/o using comparison operator?
+	
+class Equals{
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		
+		System.out.println("Enter number 1 :");
+		int num1 = in.nextInt();
+		System.out.println("Enter number 2 :");
+		int num2 = in.nextInt();
+		
+		int ans = num1 ^ num2;
+
+		boolean[] arr = new boolean[ans+1];	
+				
+		arr[ans] = true;
+		
+		if(arr[0]) {
+			System.out.println("Both are same");
+		} else {
+			System.out.println("Two numbers are different");
+		}		
+	}
+}
+
+// 5. Write a program that illustrate the execution order of static block and initializer block? 
+
+class Exceution {
+	
+	static {
+		System.out.println("Static Block");
+	}
+		
+	{
+		System.out.println("Initializer Block");
+	}	
+	
+	public static void main(String[] args) {	
+		Exceution obj = new Exceution();
+		Exceution obj1 = new Exceution();	
+	}
+}
+
+// 6. Write a program that illustrate the Explicit type casting?
+
+class Cast {
+	public static void main(String[] args) {
+		int a = 10;
+		double b = (double) a;
+
+		System.out.println(b);	
+	}
+}
+
+// 7. Write a program to check if a number is a power of 2?
+
+class Power {
+	public static void main(String[] args) {
+		
+		int n = 4;
+		boolean check = true;
+
+		while(n > 1) {
+			if(n % 2 != 0) {
+				System.out.println("No, it's not");		
+				check = false;
+				break;
+			}
+			n = n / 2;
+		}
+
+		if(check == true) {
+			System.out.println("Yes, It's power of 2");
+		}
+			
+	}
+}
+
+
+// 8. Write a program to find the first set bit of a number?
+
+class SetBit {
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+			
+		int num = in.nextInt();
+		
+		String bin = convertBinary(num);
+		int ans = index(bin);
+		System.out.println("The first Set bit of " + num + " is " + ans);
+	}	
+	
+	public static String convertBinary(int num) {	
+		if(num == 0) {
+			return "0";
+		}
+		String value = "";
+		while(num > 0) {
+			value = (num % 2) + value;
+			num = num / 2;
+		}	
+		return value;
+	}
+	
+	public static int index(String value) {
+		int len = value.length();
+		int count = 1;
+		for(int i = len-1; i  >= 0; i--) { 
+			if(value.charAt(i) == '1') {
+				return count;	
+			} else {	
+				count++;
+			}	
+		}
+		return 1;
+	}
+}
+
+/* 9. Write a class Employee with attributes empId, name, department and salary and 
+define a parametrized constructor Employee(int empId, String name, String department, double salary) and 
+assign these variables to instance variables accordingly and display them? */
+
+class Employee {
+    int empId;
+    String name;
+    String department;
+    double salary;
+
+    Employee(int empI, String name, String depart, double salary) {
+        this.empId = empI;
+        this.name = name;
+        this.department = depart;
+        this.salary = salary;
+
+        System.out.println("Employee id : " + empId + "\n" + "Name : " + name + "\n" + "Department : " + depart + "\n" + "Salary :" + salary);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+
+        Employee emp = new Employee(24, "Michael jerin", "ComputeScience", 1000.0);
+
+        System.out.println();
+    }
+}
+
+// 10. Write a program to check whether the object is an instance of a particular class?
+
+class Check {
+	public static void main(String[] args) {
+		Check obj = new Check();
+
+		if (obj instanceof Check) {
+			System.out.println("Yes, It's instance of the class"); 	
+		} else {
+			System.out.println("No, It's not a instance of the class");
+		}
+	}
+}
