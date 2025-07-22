@@ -1,0 +1,293 @@
+// Day -> 3
+
+/* 1. Create a class named 'Student' with a string variable 'name' and an integer variable 'roll_no'. 
+Assign the value of roll_no as '2' and that of name as "John" by creating an object of the class Student. */
+
+class Student {
+	String name = "John";
+	int rollNo = 2;
+}
+
+class Main {
+	public static void main(String[] args) {
+		Student s = new Student();
+		System.out.println(s.name);
+		System.out.println(s.rollNo);
+	}
+}
+
+
+/* 2. Create a class named Student that has the following attributes:
+name (String)
+roll_no (int)
+phone_no (int)
+address (String)
+Create a constructor Student(
+String name, int roll_no, int phone_no, String address) and store and display the details for two students having names "Sam" and "John" respectively. */
+
+class Student1 {
+	String name;
+	int rollNo;
+	int phoneNo;
+	String address;
+
+	Student1(String name, int rollNo, int phoneNo, String address) {
+		this.name = name;
+		this.rollNo = rollNo;
+		this.phoneNo = phoneNo;
+		this.address = address;	
+	}
+
+	String getName(){
+		return name;
+	}
+	
+	int getrollNo() {
+		return rollNo;
+	}
+
+	int getphoneNo() {
+		return phoneNo;
+	}
+
+	String getaddress() {
+		return address;
+	}
+	
+}
+class Main1 {
+	public static void main(String[] args) {
+		
+		Student1 s1 = new Student1("Michael Jerin", 34, 211111111, "Tharuvai");
+		Student1 s2 = new Student1("Mikael", 67, 1111111111, "Tharuvai");
+			
+		System.out.println("Name : " + s1.getName());
+		System.out.println("Roll no : " + s1.getrollNo());
+		System.out.println("Phone No : " + s1.getphoneNo());
+		System.out.println("Address : " + s1.getaddress());
+		System.out.println(" ");
+		System.out.println("Name : " + s2.getName());
+		System.out.println("Roll no : " + s2.getrollNo());
+		System.out.println("Phone No : " + s2.getphoneNo());
+		System.out.println("Address : " + s2.getaddress());
+	}
+}
+
+/* 3. Write a Java program where you define a class named Employee. Inside the class, define fields to hold an employee’s name, employee ID, designation, and salary.
+a. First, create a no-argument constructor that prints a message saying the object has been created, and sets default values for all the fields.
+b. Write a parametrized constructor that allows you to set values for all the fields when an object is created.
+c. Add another constructor — a copy constructor — that takes an existing employee object and creates a new one with the same values.
+In the main method, create:
+a. One object using the no-argument constructor,
+b. One object using the parametrized constructor,
+c. And a third object using the copy constructor.
+Finally, display the details of all three employees. */
+
+class Employee1 {
+	String name;
+	int id;	
+	String designation;
+	int salary;
+
+	Employee1() {
+		this.name = "null";
+		this.id = 0;
+		this.designation = "null";
+		this.salary = 0;
+	}
+	
+	Employee1(String name, int id, String designation, int salary) {
+		this.name = name;
+		this.id = id;
+		this.designation = designation;
+		this.salary = salary;
+	}
+	
+	Employee1(Employee1 e) {
+		this.name = e.name;
+		this.id = e.id;
+		this.designation = e.designation;
+		this.salary = e.salary;
+	}
+	
+	void display() {
+		System.out.println(name + " " + id + " " + designation + " " + salary);
+	}
+}
+
+class Main3 {
+	public static void main(String[] args) {
+		Employee1 s = new Employee1();
+		Employee1 s1 = new Employee1("Michael", 82, "Manager", 80000);
+		Employee1 s2 = new Employee1(s1);
+
+		s.display();
+		s1.display();
+		s2.display();
+	}
+}
+
+/* 4. Design the Vehicle class that stores information about a vehicle such as its vehicle ID, brand name, and price, 
+such that it can internally keep track of how many vehicles have been created so far, without requiring manual counting from outside the class.*/
+
+class Vehicle {
+	static int count = 0;
+	int vId;
+	String vName;
+	int vPrice;
+
+	Vehicle(int vId, String vName, int vprice) {
+		this.vId = vId;
+		this.vName = vName;
+		this.vPrice = vPrice;	
+		count++;
+	}
+}
+
+class Main4 {
+	public static void main(String[] args) {
+		Vehicle v1 = new Vehicle(20, "Car", 2000000);
+		Vehicle v2 = new Vehicle(21, "Bike", 300000);
+
+		System.out.println(Vehicle.count);
+	}
+}
+
+
+/* 5. Design a simple inventory system in Java using object-oriented principles that demonstrates the use of static variables and object containment.
+‌
+Create two classes:
+---Store
+---Product
+‌
+Requirements:
+The Store class should have:
+a. storeName and storeLocation as static variables since they are common to all products in the store.
+b. A static method setStoreDetails(String name, String location) to initialize the static variables.
+c. A static method displayStoreDetails() to print store details.
+d. A list to maintain multiple Product objects (i.e., the store contains many products).
+e. A method addProduct(Product product) to add products to the store.
+f. A method displayAllProducts() to display details of all products.
+‌
+The Product class should have:
+a. Product ID, name, price, and quantity as instance variables.
+b. A constructor to initialize these fields.
+c. A method displayProduct() to show product details.
+‌
+Task:
+Implement the above classes and demonstrate their use in the main() method by:
+a. Setting store details once.
+b. Creating multiple product objects.
+c. Adding them to the store.
+d. Displaying store and product information.
+‌
+Also Check how many .class files are generated. */
+
+class Store {
+	static String storeName;
+	static String storeLocation;
+	List<Product> list = new ArrayList<>();
+
+	public static void details(String name, String location) {
+		storeName = name;
+		storeLocation = location;
+	}
+
+	public void display() {
+		System.out.println("Store Name" + "\t\t" + "Location");	
+		System.out.println(storeName + "\t\t\t" +storeLocation);		
+	}
+		
+	public void addProduct(Product product) {
+		list.add(product);
+	}
+	
+	public void displayAll() {	
+		for(Product p : list) {
+			p.displayProd();
+			System.out.println(" ");
+		}
+	}	
+}
+
+class Product {
+	int pId;
+	String pName;
+	int pPrice;
+	int pQuantity;
+
+	public Product(int id, String name, int price, int quantity) {
+		this.pId = id;
+		this.pName = name;
+		this.pPrice = price;
+		this.pQuantity = quantity;
+	}
+
+	public void displayProd() {
+		System.out.println("Product ID : " + pId);
+		System.out.println("Product Name : " + pName);
+		System.out.println("Product Price : " + pPrice);
+		System.out.println("Product quantity : " + pQuantity);
+	}
+}
+
+class Main5 {
+	public static void main(String[] args) {
+
+		Store store = new Store();
+		
+		store.details("One", "NewYork");
+		store.display();
+	
+		
+	
+		Product p1 = new Product(1, "Camera Body", 500000, 1);
+		Product p2 = new Product(2, "Camera Tag", 3000, 2);
+		Product p3 = new Product(3, "Camera Lens", 600000, 1);
+
+		store.addProduct(p1);
+		store.addProduct(p2);
+		store.addProduct(p2);
+
+		store.displayAll();
+	}
+}
+
+
+/* 6. Write a program that would print the information (name, year of joining, salary, address) of three employees by creating a class named 'Employee'. The output should be as follows:
+Name Year of joining Address
+Robert 1994 64C- WallsStreat
+Sam 2000 68D- WallsStreat
+John 1999 26B- WallsStreat
+Can use format method to format the above said output. */
+
+class Employee0 {
+	String name;
+	int year;
+	String salary;	
+	String address;
+
+	Employee0(String name, int year, String salary, String address) {
+		this.name = name;
+		this.year = year;
+		this.salary = salary;	
+		this.address = address;
+	}
+	void display() {
+		System.out.println(name + "\t\t" + year + "\t\t" + salary + "\t\t" + address);
+	}
+}
+
+class Main6 {
+	public static void main(String[] args) {
+		Employee0 e = new Employee0("Robert", 1994, "64C", "WallsStreet");
+		Employee0 e1 = new Employee0("Sam", 2000, "68D", "WallsStreet");
+		Employee0 e2 = new Employee0("John", 1999, "26B", "WallsStreet");
+		
+		System.out.println("name" + "\t\t" + "year" + "\t\t" + "salary" + "\t\t" + "Address");
+		e.display();
+		e1.display();
+		e2.display();
+	}
+}
+
