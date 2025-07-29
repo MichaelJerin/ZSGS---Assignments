@@ -1,0 +1,276 @@
+// Day -> 5 
+
+/* 1. Design a Java program to maintain hospital medical records.
+Create a base class named MedicalRecord that includes common attributes:
+--- recordId, patientName, dateOfVisit, and diagnosis.
+--- inputRecordDetails() – to input common record information.
+--- override displayRecord() – to display the common record details. 
+
+Create a subclass InPatientRecord that extends MedicalRecord and adds:
+--- roomNumber, numberOfDaysAdmitted, roomCharges.
+--- calculateTotalCharges() – to compute and return total inpatient cost.
+--- displayRecord() – to include all details, including total charges.
+‌
+Create another subclass OutPatientRecord that extends MedicalRecord and adds:
+--- doctorName, consultationFee.
+--- override displayRecord() – to include all outpatient-specific details.
+Include all the necessary classes if its needed. */
+
+public class MedicalRecord {
+    int recordId;
+    String patientName;
+    String dateOfVisit;
+    String diagnosis;
+
+    public void inputRecordDetails(String dateOfVisit, String diagnosis, String patientName, int recordId) {
+        this.dateOfVisit = dateOfVisit;
+        this.diagnosis = diagnosis;
+        this.patientName = patientName;
+        this.recordId = recordId;
+    }
+
+    public void displayRecords(){
+        System.out.println("Record Id : " + recordId);
+        System.out.println("Patient Name : " + patientName);
+        System.out.println("Diagnosis : " + diagnosis);
+        System.out.println("Date of Visit : " + dateOfVisit);
+    }
+
+}
+
+public class InPatientRecord extends MedicalRecord {
+    int roomNumber;
+    int numberOfDateAdmitted;
+    int roomCharges;
+
+    @Override
+    public void displayRecords() {
+        super.displayRecords();
+        System.out.println("Room number : " + roomNumber);
+        System.out.println("Room Charge : " + roomCharges);
+        System.out.println("Number of Date Admitted : " + numberOfDateAdmitted);
+    }
+
+    public InPatientRecord(String dateOfVisit, String diagnosis, String patientName, int recordId ,int numberOfDateAdmitted, int roomCharges, int roomNumber) {
+        super.inputRecordDetails(dateOfVisit, diagnosis, patientName, recordId);
+        this.numberOfDateAdmitted = numberOfDateAdmitted;
+        this.roomCharges = roomCharges;
+        this.roomNumber = roomNumber;
+    }
+
+    int calculateTotalCharges() {
+        return numberOfDateAdmitted * roomCharges;
+    }
+}
+
+public class OutPatientRecord extends MedicalRecord{
+    String doctorName;
+    int consultationFees;
+
+
+    @Override
+    public void displayRecords() {
+        super.displayRecords();
+        System.out.println("Doctor Name : " + doctorName);
+        System.out.println("Consultation Fees : " + consultationFees);
+    }
+
+    public OutPatientRecord(String dateOfVisit, String diagnosis, String patientName, int recordId, String doctorName, int consultationFees) {
+        super.inputRecordDetails(dateOfVisit, diagnosis, patientName, recordId);
+        this.doctorName = doctorName;
+        this.consultationFees = consultationFees;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        InPatientRecord in = new InPatientRecord("2025-07-26", "Cancer","Spring", 10, 5, 300, 8);
+        OutPatientRecord out = new OutPatientRecord("2025-07-26", "Cancer", "Autmn", 24, "Say my name", 500);
+
+        System.out.println("In Patient Record");
+        System.out.println();
+        in.displayRecords();
+        System.out.println("Total Charges : " + in.calculateTotalCharges());
+        System.out.println();
+
+        System.out.println("Out Patient Record");
+        System.out.println();
+        out.displayRecords();
+    }
+}
+
+/* 2. Can we override private method, constructor, static method, final method? Illustrate with an example. */
+
+public class Problem {
+
+    private void ptMethod(){
+        System.out.println("Private Method");
+    }
+
+    static void stMethod() {
+        System.out.println("Static Method");
+    }
+
+    final void fMethod() {
+        System.out.println("Final Method");
+    }
+
+    public Problem() {
+        System.out.println("Problem Constructor");
+    }
+}
+
+public class Prob extends Problem{
+
+    //@Override
+    private void ptMethod() {
+        System.out.println("Overriden Private Method");
+    }
+
+    //@Override
+    static void stMethod() {
+        System.out.println("Overriden Static Method");
+    }
+
+    //@Override
+    public void Problem() {
+        System.out.println("Prob Constructor");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Prob p = new Prob();
+
+        p.fMethod();
+        p.stMethod();
+        //p.ptMethod();
+    }
+}
+
+/* 3. Create a Java application to manage employees in a company. Define a base class Employee with a method calculateSalary(). 
+Then create two subclasses FullTimeEmployee and PartTimeEmployee that override calculateSalary() method based on their working type. */
+
+public class Employees {
+    int id;
+
+    public Employees(int id) {
+        this.id = id;
+    }
+
+    public int calculateSalary() {
+        return 0;
+    }
+
+    void display() {
+        System.out.println("Id : " + id);
+    }
+}
+
+public class FullTimeEmployee extends Employees{
+
+    private int salary;
+
+    public FullTimeEmployee(int id, int salary) {
+        super(id);
+        this.salary = salary;
+    }
+
+    @Override
+    public int calculateSalary() {
+        return salary * 12;
+    }
+
+    @Override
+    void display() {
+        super.display();
+        System.out.println(calculateSalary());
+    }
+}
+
+public class PartTimeEmployee extends Employees{
+    int time;
+    private int salary;
+
+    public PartTimeEmployee(int id, int salary, int time) {
+        super(id);
+        this.salary = salary;
+        this.time = time;
+    }
+
+    @Override
+    public int calculateSalary() {
+        return salary * time;
+    }
+
+    @Override
+    void display() {
+        super.display();
+        System.out.println(calculateSalary());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        FullTimeEmployee ft = new FullTimeEmployee(1, 24000);
+        PartTimeEmployee pt = new PartTimeEmployee(2, 1200, 5);
+
+        ft.display();
+        System.out.println();
+        pt.display();
+    }
+}
+
+/* 4. Design a Java Ticket Booking System using polymorphism where Bus, Train, and Flight tickets share a common method but implement booking differently. */
+
+
+public class TicketBooking {
+    
+    void booking() {
+
+    }
+
+}
+
+public class Bus extends TicketBooking{
+
+    @Override
+    void booking() {
+        System.out.println("Bus Ticket Booking");
+    }
+
+}
+
+public class Flight extends TicketBooking{
+
+    @Override
+    void booking() {
+        System.out.println("Flight Ticket Booking");
+    }
+
+}
+
+public class Train extends TicketBooking{
+
+    @Override
+    void booking() {
+        System.out.println("Train Ticket Booking");
+    }
+    
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Bus bus = new Bus();
+        bus.booking();
+
+        Train train = new Train();
+        train.booking();
+
+        Flight flight = new Flight();
+        flight.booking();
+
+    }
+}
