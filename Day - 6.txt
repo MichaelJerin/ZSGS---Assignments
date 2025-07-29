@@ -1,0 +1,463 @@
+// Day -> 6 
+
+/* 1. Illustrate the concept-Encapsulation with the Payment Gateway System.
+[The class should encapsulate private data members such as transaction ID, payer name, payee name, amount, payment method, and transaction status. 
+Provide appropriate public getter and setter methods to access and modify these details securely. 
+Also include a method to display the transaction summary.] */
+
+public class Tansaction {
+    private int transactionId;
+    private String sender;
+    private String receiver;
+    private double amount;
+    private String paymentMethod;
+    private String status;
+
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    void display() {
+        System.out.println("Transaction id : " + transactionId);
+        System.out.println("Sender : " + sender);
+        System.out.println("Receiver :" + receiver);
+        System.out.println("Amount : " + amount);
+        System.out.println("Payment Method : " + paymentMethod);
+        System.out.println("Status : " + status);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Tansaction t = new Tansaction();
+
+        System.out.println("Transaction Details");
+        t.setTransactionId(123);
+        t.setSender("NameLess");
+        t.setReceiver("Unknown");
+        t.setAmount(150000);
+        t.setPaymentMethod("UPI");
+        t.setStatus("Completed");
+
+        t.display();
+    }
+
+}
+
+/* 2. Create a Java application that demonstrates the use of user-defined packages by organising classes based on their functionality:
+--- arithmetic: This package should include a class that defines methods to perform the following operations on two numbers:
+a. Addition
+b. Subtraction
+c. Multiplication
+d. Division
+e. Modulo
+--- stringutils: This package should include a class that defines methods for:
+a. Concatenating two strings
+b. Reversing a string
+c. Finding the length of a string
+In your main class (outside those packages), import the above packages and demonstrate the usage of all the methods. */
+
+package org.example.Question_02.Arithmetic;
+
+public class Calculator {
+
+    public int a;
+    public int b;
+
+    public int getA() {
+        return this.a;
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    public int getB() {
+        return this.b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public int addition(int a, int b) {
+        return a + b;
+    }
+
+    public int subtract(int a, int b) {
+        return a - b;
+    }
+
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+    public double divide(int a, int b) {
+        return (double) a / b;
+    }
+
+    public double modulo(int a, int b) {
+        return a % b;
+    }
+
+    public void display(int a, int b) {
+        System.out.println("Addition: " + addition(a, b));
+        System.out.println("Subtraction: " + subtract(a, b));
+        System.out.println("Multiplication: " + multiply(a, b));
+        System.out.println("Divide: " + divide(a, b));
+        System.out.println("Modulus: " + modulo(a, b));
+    }
+}
+
+package org.example.Question_02.Stringutils;
+
+public class Stringutils {
+
+    public String str1;
+    public String str2;
+
+    public String getStr1(){
+        return str1;
+    }
+
+    public String getStr2() {
+        return str2;
+    }
+
+    public void setStr1(String str1) {
+        this.str1 = str1;
+    }
+
+    public void setStr2(String str2) {
+        this.str2 = str2;
+    }
+
+    public String concat(String str1, String str2) {
+        return str1 + str2;
+    }
+
+    public String reverse(String str1) {
+        StringBuilder result = new StringBuilder();
+        int len = str1.length();
+        for (int i = 0; i < len; i++) {
+            result.insert(0, str1.charAt(i));
+        }
+        return result.toString();
+    }
+
+    public int length(String str1) {
+        return str1.length();
+    }
+
+    public void display(String str1, String str2) {
+        System.out.println("Concatenation : " + concat(str1, str2));
+        System.out.println("Reverse : " + reverse(str1));
+        System.out.println("Length : " + length(str1));
+    }
+}
+
+package org.example.Question_02;
+
+import org.example.Question_02.Arithmetic.Calculator;
+import org.example.Question_02.Stringutils.Stringutils;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Calculator c = new Calculator();
+
+        Scanner in = new Scanner(System.in);
+        System.out.println("Calculator");
+        System.out.println();
+        System.out.print("Enter number1 : ");
+        int a = in.nextInt();
+        System.out.print("Enter number2 : ");
+        int b = in.nextInt();
+
+        c.setA(a);
+        c.setB(b);
+
+        c.display(c.getA(), c.getB());
+
+        in.nextLine();
+
+        System.out.println();
+        Stringutils s = new Stringutils();
+
+        System.out.println("String");
+        System.out.print("Enter String1 : ");
+        String str1 = in.nextLine();
+        System.out.print("Enter String2 : ");
+        String str2 = in.nextLine();
+
+        s.setStr1(str1);
+        s.setStr2(str2);
+
+        s.display(s.getStr1(), s.getStr2());
+
+    }
+}
+
+/* 3. Design a class`Employee with private data members: employee ID, name, designation, department, and monthly salary. 
+Use proper getter and setter methods to access and update these fields. 
+Add a method to calculate and return the annual salary of the employee. */
+
+public class Employee {
+    private int employeeId;
+    private String name;
+    private String designation;
+    private String department;
+    private int salary;
+
+    public int getEmployeeId(){
+        return this.employeeId;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDesignation() {
+        return this.designation;
+    }
+
+    public String getDepartment() {
+        return this.department;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public double calculateSalary(int salary) {
+        return salary * 12;
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        Employee e = new Employee();
+
+        e.setEmployeeId(123);
+        e.setName("Nameless");
+        e.setDesignation("Head");
+        e.setDepartment("Photography");
+        e.setSalary(120000);
+
+
+        System.out.println("Employee Id: " + e.getEmployeeId());
+        System.out.println("Employee Name: " +  e.getName());
+        System.out.println("Designation: " + e.getDesignation());
+        System.out.println("Department: " + e.getDepartment());
+        System.out.println("Salary: " + e.getSalary());
+        System.out.println("Annual Salary: " + e.calculateSalary(e.getSalary()));
+    }
+}
+
+/* 4. Design a travel booking system using two packages:`travel.booking – includes a class`Ticket with ticket ID, destination, and fare.
+`travel.user – includes a class`User with user details and a method to book a ticket.
+Illustrate accessing ticket data from within the user class. */
+
+package org.example.Question_04.Travel.Booking;
+
+public class Ticket {
+    public int ticketId;
+    public String destination;
+    public double fare;
+
+    public Ticket(int ticketId, String destination, double fare) {
+        this.ticketId = ticketId;
+        this.destination = destination;
+        this.fare = fare;
+    }
+
+    public void display() {
+        System.out.println("Ticket id : " + ticketId);
+        System.out.println("Destination : " + destination);
+        System.out.println("Fare : " + fare);
+    }
+}
+
+package org.example.Question_04.Travel.User;
+
+import org.example.Question_04.Travel.Booking.Ticket;
+
+public class User {
+    public String name;
+    public int age;
+
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void userDetail(String name, int age) {
+        System.out.println("Name : " + name);
+        System.out.println("Age : " + age);
+    }
+
+    public void book() {
+        Ticket t = new Ticket(12, "Chernobyl", 120);
+        userDetail(name, age);
+        t.display();
+    }
+}
+
+import org.example.Question_04.Travel.User.User;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Booking info");
+        User user = new User("Nameless", 28);
+        user.book();
+    }
+}
+
+/* 5. Design a class named`BankAccount that uses the concept of encapsulation. The class should have the following private data members: account number, account holder name, and balance. 
+Provide public getter and setter methods to access and modify these fields. 
+Also, include a method to deposit and withdraw amount ensuring that the balance cannot go negative. */
+
+public class BankAccount {
+    private long accountNo;
+    private String accName;
+    private long balance;
+
+    public String getAccName() {
+        return accName;
+    }
+
+    public void setAccName(String accName) {
+        this.accName = accName;
+    }
+
+    public long getAccountNo() {
+        return accountNo;
+    }
+
+    public void setAccountNo(long accountNo) {
+        this.accountNo = accountNo;
+    }
+
+    public long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(long balance) {
+        this.balance = balance;
+    }
+
+    public void deposit(long amount) {
+        if(amount > 0) {
+            balance += amount;
+            System.out.println("Successfully deposited");
+        } else {
+            System.out.println("Invalid amount to deposit");
+        }
+    }
+
+    public void withdrawal(long amount) {
+        if(amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawal amount is " + amount);
+        } else {
+            System.out.println("Insufficient balance");
+        }
+    }
+
+    public void display() {
+        System.out.println("Account Number : " + getAccountNo());
+        System.out.println("Account HolderName : " + getAccName());
+        System.out.println("Balance : " + getBalance());
+    }
+}
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        BankAccount ba = new BankAccount();
+
+        ba.setBalance(1000);
+        ba.setAccName("Nameless");
+        ba.setAccountNo(1234567890);
+
+        ba.display();
+
+        while (true) {
+
+            System.out.println("Enter 1. FOR DEPOSIT 2. FOR WITHDRAWAL 3. FOR CHECK BALANCE 4. EXIT ");
+            int choice = in.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter amount for deposit : ");
+                    long dAmount = in.nextLong();
+                    ba.deposit(dAmount);
+                    break;
+
+                case 2:
+                    System.out.print("Enter amount for withdrawal : ");
+                    long wAmount = in.nextLong();
+                    ba.withdrawal(wAmount);
+                    break;
+
+                case 3:
+                    System.out.println("Balance is " + ba.getBalance());
+                    break;
+
+                case 4:
+                    System.exit(0);
+
+                default:
+                    System.out.println("Enter valid choice");
+            }
+        }
+    }
+}
+
+
+
