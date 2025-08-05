@@ -1,0 +1,295 @@
+// Day -> 09
+
+/*
+1. int[] arr = {2, 5, 1, 4, 0, 7};
+int quotient = arr[7] / arr[4];
+Develop a Java program which handles any unexpected situations that may arise during execution.
+*/
+
+package org.example;
+
+public class Question_01 {
+    public static void main(String[] args) {
+        
+        int[] arr = {2, 3, 1, 4, 0, 7};
+        
+        try {
+            int quotient = arr[7] / arr[4];
+            System.out.print("Quotient : " + quotient);        
+        } catch (ArithmeticException a) {
+            System.out.println("Something fishy : " + a.getMessage());
+        } catch (Exception e) {
+            System.out.println("Index out of bound : " + e.getMessage());
+        }
+    }
+}
+
+/*
+2. Demonstrate multiple catch blocks: accept two numbers as strings, then convert them to integers, and perform division, 
+and catch the following exceptions: InputMismatchException, NumberFormatException, ArithmeticException and Exception.
+*/
+
+package org.example;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Question_02 {
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        try{
+            System.out.print("Enter a : ");
+            String a =  in.nextLine();
+            System.out.print("Enter b: ");
+            String b = in.nextLine();
+
+            int a1 = Integer.parseInt(a);
+            int b1 = Integer.parseInt(b);
+
+            int quotient = a1 / b1;
+            System.out.println("Quotient : " + quotient);
+
+            System.out.println("Enter something for input mismatch : ");
+            int c = in.nextInt();
+
+            System.out.println(c);
+
+        } catch (InputMismatchException im) {
+            System.out.println("Input mismatch exception : " + im.getMessage());
+        } catch (NumberFormatException nf) {
+            System.out.println("Number format exception : " + nf.getMessage());
+        } catch (ArithmeticException am) {
+            System.out.println("Arithmetic Exception : " + am.getMessage());
+        } catch (Exception e) {
+            System.out.println("Exception : " + e.getMessage());
+        } finally {
+            in.close();
+            System.out.println("End...");
+        }
+    }
+}
+
+/*
+3. Write a program to illustrate how to throw a ClassNotFoundException.
+*/
+
+package org.example;
+
+public class Question_03 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("org.example.Deo");
+            System.out.println("Class Exists");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found Exception : " + e.getMessage());
+        }
+    }
+}
+
+/*
+4. Write a method to parse a string to an integer. Throw an exception if the string is not a valid number. Handle it using try-catch.
+*/
+
+package org.example;
+
+import java.util.Scanner;
+
+public class Question_04 {
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter a String : ");
+            String str = in.nextLine();
+
+            int a = Integer.parseInt(str);
+            System.out.println("Number is  : " + a);
+
+        } catch (NumberFormatException nf) {
+            System.out.println("Number Format Exception : " + nf.getMessage());
+        } finally {
+            in.close();
+            System.out.println("Exit...");
+        }
+    }
+}
+
+/*
+5. Create a program where try block contains a return statement. Ensure that finally block executes before the method returns. Show this with output.
+*/
+
+package org.example;
+
+public class Question_05 {
+    public static void main(String[] args) {
+        System.out.println(method(10));
+    }
+
+    static int method (int a) {
+        try {
+            return a;
+        } finally {
+            System.out.println("Finally....");
+        }
+    }
+}
+
+/*
+6. Write a Java program to accept a 4-digit ATM PIN from the user and validate whether it meets the following conditions:
+--->It must be exactly 4 digits long.
+--->It should contain only numeric characters.
+--->It must not start with 0.
+Display an appropriate message whether the PIN is valid or invalid.
+*/
+
+package org.example;
+
+import java.util.Scanner;
+
+public class Question_06 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter Password : ");
+        String pin = in.nextLine();
+
+        try {
+            if(isValid(pin)) {
+                System.out.println("Valid Password");
+            }
+        } catch (Exception e) {
+            System.out.println("Exception : " + e.getMessage());
+        }
+    }
+
+    static boolean isValid(String pin) throws Exception{
+        if(pin.length() != 4) {
+            throw new Exception("Invalid Password : Give 4 digit password");
+        }
+
+        if(pin.charAt(0) == '0') {
+            throw new Exception("Invalid Password : Password must not have first digit as zero");
+        }
+
+        for(int i = 0; i < 4; i++) {
+            if (pin.charAt(i) < 48 || pin.charAt(i) > 57) {
+                throw new Exception("Invalid Password : Give numerical characters");
+            }
+        }
+        return true;
+    }
+}
+
+
+/*
+7. Write a Java program that shows exception propagation across multiple methods (method1 calls method2 calls method3, which throws the exception). Handle the exception in method1.
+*/
+
+package org.example;
+
+public class Question_07 {
+    public static void main(String[] args) {
+        method1();
+    }
+
+    static void method1() {
+        try {
+            method2();
+        } catch (Exception e) {
+            System.out.println("Exception : " + e.getMessage());
+        }
+    }
+
+    static  void method2() throws Exception {
+        method3();
+    }
+
+    static void method3() throws Exception {
+        throw new Exception("Exception in Method 3");
+    }
+}
+
+/*
+8. Design a login system that throws AuthenticationException if the username or password is incorrect. Handle it and display a login failure message.
+*/package org.example;
+
+import java.util.Scanner;
+
+public class Question_08 {
+    public static void main(String[] args) throws Exception {
+        String user = "user";
+        String password = "user";
+
+        Scanner in = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter Username : ");
+            String username = in.nextLine();
+            if (!user.equals(username)) {
+                throw new Exception("InValid Username");
+            }
+            System.out.print("Enter Password : ");
+            String passcode = in.nextLine();
+            if (!password.equals(passcode)) {
+                throw new Exception("Invalid Password");
+            }
+
+            System.out.println("Login Successfully");
+        } finally {
+            in.close();
+        }
+    }
+}
+
+/*
+9. Create a method to read a file from disk. Handle FileNotFoundException and IOException using try-catch-finally.
+*/
+
+package org.example;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+public class Question_09 {
+    public static void main(String[] args) {
+        try {
+            FileReader fr = new FileReader("file");
+            System.out.println("File Exists");
+        } catch (FileNotFoundException e) {
+            System.out.println("Exception : " + e.getMessage());
+        }
+    }
+}
+
+/*
+10. Write a Java program to manage a voting system where a person must be at least 18 years old to be eligible to vote. 
+Use a custom exception to handle the scenario when an ineligible person tries to register for voting. 
+Display appropriate messages for eligible and ineligible voters.
+*/
+
+package org.example;
+
+import java.util.Scanner;
+
+public class Question_10 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter Age : ");
+        int age = in.nextInt();
+
+        try {
+            checkAge(age);
+        } catch (AgeException e) {
+            System.out.println("Exception : " + e.getMessage());
+        }
+    }
+
+    static void checkAge(int age) throws AgeException {
+        if(age < 18) {
+            throw new AgeException("Your age is below 18...Not Eligible");
+        } else {
+            System.out.println("You're eligible to vote");
+        }
+    }
+}
