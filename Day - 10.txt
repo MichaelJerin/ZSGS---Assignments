@@ -1,0 +1,641 @@
+// Day -> 10
+
+/*
+1. Write a Java program
+a. to create a new array list, add some colours (string) and print out the collection.
+b. to iterate through all elements in an array list.
+c. to insert an element into the array list at the first position.
+d. to retrieve an element (at a specified index) from a given array list.
+e. to update specific array element by given element.
+f. to remove the third element from an array list.
+g. to search an element in an array list.
+h. to sort a given array list.
+i. to copy one array list into another.
+j. to shuffle elements in an array list.
+*/ 
+
+package org.example;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Question_01 {
+    public static void main(String[] args) {
+        ArrayList<String> color = new ArrayList<>();
+
+        color.add("Black");
+        color.add("Blue");
+        color.add("Burgundy");
+        color.add("Green");
+
+        System.out.print("List Elements : ");
+        System.out.println(color);
+        System.out.println();
+
+        color.add(0, "Brown");
+        System.out.println("Adding element to first index : " + color);
+        System.out.println();
+
+        System.out.println("Retrieve element at specific index : " + color.get(3));
+        System.out.println();
+
+        color.set(3, "Purple");
+        System.out.println("After updating : " + color);
+        System.out.println();
+
+        color.remove(2);
+        System.out.println("After removing 3rd element : " + color);
+        System.out.println();
+
+        System.out.println("Search element in the list : " + color.indexOf("Black"));
+        System.out.println();
+
+        Collections.sort(color);
+        System.out.println("Sorted List : " + color);
+        System.out.println();
+
+        ArrayList<String> list = new ArrayList<>(color);
+        System.out.println("Copy one list to another list : " + list);
+        System.out.println();
+
+        Collections.shuffle(color);
+        System.out.println("Shuffled list : " + color);
+
+    }
+}
+
+/*
+2. Write a Java program to,
+a. append the specified element to the end of a linked list.
+b. iterate through all elements in a linked list.
+c. iterate through all elements in a linked list starting at the specified position.
+d. iterate a linked list in reverse order.
+e. insert the specified element at the specified position in the linked list.
+f. insert elements into the linked list at the first and last position.
+g. insert the specified element at the front of a linked list.
+h. insert the specified element at the end of a linked list.
+i. insert some elements at the specified position into a linked list.
+j. get the first and last occurrence of the specified elements in a linked list.
+*/
+
+package org.example;
+
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+public class Question_02 {
+    public static void main(String[] args) {
+        LinkedList<Integer> list = new LinkedList<>();
+
+        list.add(1);
+
+        System.out.print("Add element at the end of the list : ");
+        System.out.println(list);
+        System.out.println();
+
+        list.add(2);
+        list.add(3);
+
+        System.out.print("Element in list : ");
+        Iterator<Integer> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            System.out.print(iterator.next() + " ");
+        }
+        System.out.println();
+        System.out.println();
+
+        System.out.print("Iterate form specific position : ");
+        for (int i = 1; i < list.size(); i++) {
+            System.out.print(list.get(i) + " ");
+        }
+        System.out.println();
+        System.out.println();
+
+        System.out.print("Iterate list backwards : ");
+        Collections.reverse(list);
+        System.out.println(list);
+        System.out.println();
+
+        Collections.reverse(list);
+
+        System.out.print("Insert element at specific index : ");
+        list.add(2, 4);
+        System.out.println(list);
+        System.out.println();
+
+        System.out.print("Insert element at first and last : ");
+        list.addFirst(0);
+        list.addLast(5);
+        System.out.println(list);
+        System.out.println();
+
+        System.out.print("Insert element at the front of the list : ");
+        list.offerFirst( 4);
+        System.out.println(list);
+        System.out.println();
+
+        System.out.print("Insert element at the end of the list : ");
+        list.offerLast(6);
+        System.out.println(list);
+        System.out.println();
+
+        System.out.print("Insert element at specific position : ");
+        list.add(5, 7);
+        System.out.println(list);
+        System.out.println();
+
+        int index1 = list.indexOf(4);
+        int index2 = list.lastIndexOf(4);
+        System.out.println("First index is " + index1 + " and the last index is " + index2);
+    }
+}
+
+
+/*
+3. Write a Java program to,
+a. append the specified element to the end of a hash set.
+b. iterate through all elements in a hash list.
+c. get the number of elements in a hash set.
+d. empty the hash set.
+e. test a hash set is empty or not.
+f. clone a hash set to another hash set.
+g. convert a hash set to an array.
+h. convert a hash set to a tree set.
+i. convert a hash set to a List/ArrayList.
+j. compare two hash set.
+*/
+
+package org.example;
+import java.util.*;
+
+public class Question_03 {
+    public static void main(String[] args) {
+
+        HashSet<Integer> set = new HashSet<>();
+
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        set.add(4);
+
+        System.out.print("Iterate through all the elements : ");
+        for (int i : set) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+
+        System.out.println("No. of elements in list : " + (set.size()));
+
+        set.clear();
+
+        System.out.println("Set is Empty or not : " + set.isEmpty());
+
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        set.add(4);
+
+        HashSet<Integer> cloned = (HashSet<Integer>) set.clone();
+        System.out.println("Cloned : " + cloned);
+        
+        System.out.print("HashSet to Array : ");
+        Integer[] arr = set.toArray(new Integer[set.size()]);
+        System.out.println(Arrays.toString(arr));
+
+        TreeSet<Integer> treeSet = new TreeSet<>(set);
+        System.out.println("HashSet to TreeSet : " + treeSet);
+
+        ArrayList<Integer> list = new ArrayList<>(set);
+        System.out.println("HashSet to ArrayList : " + list);
+
+        HashSet<Integer> set1 = new HashSet<>();
+        set1.add(1);
+        set1.add(2);
+        set1.add(3);
+        set1.add(4);
+        System.out.println("Comparing two sets : " + set.equals(set1));
+    }
+}
+
+
+/*
+4. Write a Java program to,
+a. create a new tree set, add some colours (string) and print out the tree set.
+b. iterate through all elements in a tree set.
+c. add all the elements of a specified tree set to another tree set.
+d. create a reverse order view of the elements contained in a given tree set.
+e. get the first and last elements in a tree set.
+f. clone a tree set list to another tree set.
+g. get the number of elements in a tree set.
+h. compare two tree sets.
+Create a TreeSet that stores a set of numbers,   
+i. find the numbers less than 7 in a tree set.
+j. get the element in a tree set which is greater than or equal to the given element.
+k. get the element in a tree set which is less than or equal to the given element.
+l. get the element in a tree set which is strictly greater than or equal to the given element.
+m. get an element in a tree set which is strictly less than the given element.
+n. retrieve and remove the first element of a tree set.
+o. retrieve and remove the last element of a tree set.
+p. remove a given element from a tree set.
+*/
+
+package org.example;
+
+import java.util.Iterator;
+import java.util.TreeSet;
+
+public class Question_04 {
+    public static void main(String[] args) {
+
+        TreeSet<String> color = new TreeSet<>();
+
+        color.add("Purple");
+        color.add("Black");
+        color.add("Blue");
+        color.add("Grey");
+        color.add("Teal");
+
+        Iterator<String> iterator = color.iterator();
+        System.out.print("All the elemetns from the list : ");
+        while(iterator.hasNext()){
+            System.out.print(iterator.next() + " ");
+        }
+        System.out.println();
+
+        TreeSet<String> set2 = new TreeSet<>(color);
+        System.out.print("Copying one set to another : " + set2);
+        System.out.println();
+
+        Iterator<String> itr = color.descendingIterator();
+        System.out.print("Reverse order : ");
+        while (itr.hasNext()) {
+            System.out.print(itr.next() + " ");
+        }
+        System.out.println();
+
+        System.out.println("First element is " + color.first() + " and Last Element is " + color.last());
+
+        TreeSet<String> cloned = (TreeSet<String>) color.clone();
+        System.out.print("Clone set : " + cloned);
+        System.out.println();
+
+        System.out.println("No. of elements in the list : " + color.size());
+
+        System.out.println("Comparing two list : " + color.equals(cloned));
+
+        TreeSet<Integer> num = new TreeSet<>();
+        num.add(1);
+        num.add(2);
+        num.add(3);
+        num.add(4);
+        num.add(5);
+        num.add(9);
+
+        System.out.print("Numbers less than 7 : ");
+        Iterator<Integer> itr2 = num.iterator();
+        while(itr2.hasNext()) {
+            int n = itr2.next();
+            if(n < 7) {
+                System.out.print(n + " ");
+            }
+        }
+        System.out.println();
+
+        System.out.print("Element greater than or equal to give element : ");
+        int n1 = 4;
+        for (int a  : num) {
+            if(a >= n1) {
+                System.out.print(a + " ");
+            }
+        }
+        System.out.println();
+
+        System.out.print("Element less than or equal to give element : ");
+        int n = 4;
+        for (int a  : num) {
+            if(a <= n) {
+                System.out.print(a + " ");
+            }
+        }
+        System.out.println();
+
+        System.out.print("Element greater than give element : ");
+        int n2 = 4;
+        for (int a  : num) {
+            if(a > n2) {
+                System.out.print(a + " ");
+            }
+        }
+        System.out.println();
+
+        System.out.print("Element less than give element : ");
+        int n3 = 4;
+        for (int a  : num) {
+            if(a < n3) {
+                System.out.print(a + " ");
+            }
+        }
+        System.out.println();
+
+        System.out.println("Retrieve and Remove the First element : " + num.pollFirst());
+        System.out.println(num);
+
+        System.out.println("Retrieve and Remove the Last element : " + num.pollLast());
+        System.out.println(num);
+
+        System.out.println("Removing specific element from the list : " + num.remove(3));
+        System.out.println(num);
+    }
+}
+
+/*
+5. Write a Java program to,
+1. create a new priority queue, add some colors (string) and print out the elements of the priority queue.
+2. iterate through all elements in priority queue.
+3. add all the elements of a priority queue to another priority queue.
+4. insert a given element into a priority queue.
+5. remove all the elements from a priority queue.
+6. count the number of elements in a priority queue.
+7. compare two priority queues.
+8. retrieve the first element of the priority queue.
+9. retrieve and remove the first element.
+10. convert a priority queue to an array containing all of the elements of the queue.
+*/
+
+package org.example;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.PriorityQueue;
+
+public class Question_05 {
+    public static void main(String[] args) {
+        PriorityQueue<String> color = new PriorityQueue<>();
+
+        color.add("Red");
+        color.add("Blue");
+        color.add("Black");
+        color.add("Teal");
+        color.add("Burgundy");
+
+        System.out.println("Element in the Priority Queue : " + color);
+
+        System.out.print("Iterating Priority Queue : ");
+        Iterator<String> iterator = color.iterator();
+        while (iterator.hasNext()) {
+            System.out.print(iterator.next() + " ");
+        }
+        System.out.println();
+
+        PriorityQueue<String> queue = new PriorityQueue<>(color);
+        System.out.println("Add elements to new Priority Queue : " + queue);
+
+        color.add("Yellow");
+        System.out.println("Inserting element into the queue : " + color);
+
+        color.clear();
+        System.out.println("After removing all the element and the queue : " + color);
+
+        color.add("Red");
+        color.add("Blue");
+        color.add("Black");
+        color.add("Teal");
+        color.add("Burgundy");
+
+        System.out.println("Size of the queue: " + color.size());
+
+        System.out.println("Comparing two queues : " + new HashSet<>(color).equals(new HashSet<>(queue)));
+
+        System.out.println("Retrieve the first element : " + color.peek());
+
+
+        System.out.println("Retrieve and remove the first element : " + color.poll());
+        System.out.println(color);
+
+        System.out.print("Converting Priority queue to an array : ");
+        String[] arr = color.toArray(new String[color.size()]);
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+
+/*
+6. Write a Java program to,
+1. associate the specified value with the specified key in a Tree Map.
+2. copy a Tree Map content to another Tree Map.
+3. search a key in a Tree Map.
+4. search a value in a Tree Map.
+5. get all keys from the given a Tree Map.
+6. delete all elements from a given Tree Map.
+7. sort keys in Tree Map by using comparator.
+8. get a key-value mapping associated with the greatest key and the least key in a map.
+9. get the first (lowest) key and the last (highest) key currently in a map.
+10. get a reverse order view of the keys contained in a given map.
+*/
+
+package org.example;
+
+import java.util.Comparator;
+import java.util.TreeMap;
+
+public class Question_06 {
+    public static void main(String[] args) {
+
+        TreeMap<Integer, String> map = new TreeMap<>();
+
+        map.put(1, "Sony");
+        map.put(2, "Cannon");
+        map.put(3, "Fujiflim");
+        map.put(4, "Kodak");
+
+        TreeMap<Integer, String> map2 = new TreeMap<>(map);
+        System.out.println("Copy tree map form another map : " + map2);
+        System.out.println();
+
+        System.out.println("Search a key in tree map : ");
+        int key = 1;
+        if(map.containsKey(key)) {
+            System.out.println("Key is " + key + " value is " + map.get(key));
+        } else {
+            System.out.println("Key not found");
+        }
+        System.out.println();
+
+        System.out.println("Search a Value in tree map : ");
+        String value = "Sony";
+        if(map.containsValue(value)) {
+            System.out.println("Value is " + map.get(key) + " Key is " + key);
+        } else {
+            System.out.println("Key not found");
+        }
+        System.out.println();
+
+        System.out.print("Keys in the tree map : " + map.keySet());
+        System.out.println();
+        System.out.println();
+
+        Comparator<Integer> c = (a, b) -> b - a;
+        TreeMap<Integer, String> newmap = new TreeMap<>(c);
+        newmap.putAll(map);
+        System.out.println("Sort by Comparator : " + newmap);
+        System.out.println();
+
+        System.out.println("Key and Value of Highest and Lowest key : ");
+        System.out.println("Lowest key is " + map.firstKey() + " and the value is " + map.get(map.firstKey()));
+        System.out.println("Greatest key is " + map.lastKey() + " and the value is " + map.get(map.lastKey()));
+        System.out.println();
+
+        System.out.println("The lowest key is " + map.firstKey() + " and the highest key is " + map.lastKey());
+        System.out.println();
+
+        System.out.print("Key in reversed order : ");
+        System.out.println(map.descendingKeySet());
+        System.out.println();
+
+        map.clear();
+        System.out.println("Empty map : " + map);
+    }
+}
+
+
+/*
+7. Write a Java program to,
+1. associate the specified value with the specified key in a HashMap.
+2. count the number of key-value (size) mappings in a map.
+3. copy all of the mappings from the specified map to another map.
+4. remove all of the mappings from a map.
+5. check whether a map contains key-value mappings (empty) or not.
+6. get a shallow copy of a HashMap instance.
+7. test if a map contains a mapping for the specified key.
+8. test if a map contains a mapping for the specified value.
+9. create a set view of the mappings contained in a map.
+10. get the value of a specified key in a map.
+*/
+
+package org.example;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Question_07 {
+    public static void main(String[] args) {
+        HashMap<Integer, String> map = new HashMap<>();
+
+        map.put(1, "lilly");
+        map.put(2, "Darcy");
+        map.put(3, "The Great Gatsby");
+        map.put(4, "Katherine");
+        map.put(5, "Heathcliff");
+
+        System.out.print("Map : " + map);
+        System.out.println();
+        System.out.println();
+
+        System.out.println("Number of elemetns in the map : " + map.size());
+        System.out.println();
+
+        HashMap<Integer, String> copy = new HashMap<>(map);
+        for(Map.Entry <Integer, String> entry : map.entrySet()) {
+            copy.put(entry.getKey(), entry.getValue());
+        }
+        System.out.println("Copied MAp : " + copy);
+        System.out.println();
+
+        HashMap<Integer, String> copied = new HashMap<>(map);
+        System.out.println("Shallow Copied Map : " + copied);
+        System.out.println();
+
+        int n = 3;
+        if (map.containsKey(n)) {
+            System.out.println("Yes it contains key " + n);
+        } else {
+            System.out.println("No the key is not in the map");
+        }
+        System.out.println();
+
+        String a = "lilly";
+        if(map.containsValue(a)) {
+            System.out.println("Yes it contains value " + a);
+        } else {
+            System.out.println("No the value is not in the map");
+        }
+        System.out.println();
+
+        System.out.println("Set View of Mapping : ");
+        for(Map.Entry<Integer, String> entry : map.entrySet()) {
+            System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
+        }
+        System.out.println();
+
+        int key = 1;
+        System.out.println("Getting value by key : " + map.get(key));
+        System.out.println();
+
+        map.clear();
+        System.out.println("After Clearing the map : " + map);
+    }
+}
+
+
+/*
+8. Develop a Java program to manage a list of bank accounts using ArrayList.
+--->Create an Account class with the following attributes:
+a. accountNumber (int)
+b. holderName (String)
+c. balance (double)
+--->Use autoboxing to store the balance and interest as Double wrapper objects.
+--->Use manual boxing to convert a primitive interest rate into a Double object.
+--->Unbox the values (both automatic and manual) to calculate and update the new balance.
+--->Add at least three Account objects to an ArrayList<Account>.
+--->For each account:
+a. Display the holder name, account number, original balance
+b. Apply 5% interest
+c. Show the new balance using primitive values (unboxed).
+*/
+
+package org.example;
+
+public class Account{
+    int accountNumber;
+    String holderName;
+    double balance;
+
+    public Account (int accountNumber, String holderName, double balance) {
+        this.accountNumber = accountNumber;
+        this.holderName = holderName;
+        this.balance = balance;
+    }
+}
+
+package org.example;
+
+import java.util.ArrayList;
+
+public class Question_08 {
+    public static void main(String[] args) {
+        ArrayList<Account> acc = new ArrayList<>();
+
+        acc.add(new Account(1, "One", 1000));
+        acc.add(new Account(2, "Two", 200));
+        acc.add(new Account(3, "Three", 100));
+
+        double interest = 0.05;
+        Double interest1 = interest;
+        System.out.println("Manual Boxing : " + interest1);
+        System.out.println();
+
+        for (Account a : acc) {
+            System.out.println("Account Number : " + a.accountNumber);
+            System.out.println("Holdebb" + "Name : " + a.holderName);
+            System.out.println("Balance : " + a.balance);
+
+            double interes = a.balance * interest;
+            a.balance += interes;
+
+            System.out.println("New Balance after 5% interest : " + a.balance );
+            System.out.println();
+        }
+    }
+}
