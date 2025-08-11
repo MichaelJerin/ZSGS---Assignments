@@ -1,0 +1,871 @@
+Day -> 4
+
+/* 1. We want to store the information about different vehicles. Create a class named Vehicle with two data member named mileage and price. Create its two subclasses
+---Car with data members to store ownership cost, warranty (by years), seating capacity and fuel type (diesel or petrol).
+---Bike with data members to store the number of cylinders, number of gears, cooling type(air, liquid or oil), wheel type(alloys or spokes) and fuel tank size(in inches)
+Make another two subclasses Audi and Ford of Car, each having a data member to store the model type.
+Next, make two subclasses Bajaj and TVS, each having a data member to store the make-type.
+Now, store and print the information of an Audi and a Ford car (i.e. model type, ownership cost, warranty, seating capacity, fuel type, mileage and price.) 
+Do the same for a Bajaj and a TVS bike. */
+
+public class Vehicles {
+    double mileage;
+    double price;
+}
+
+package org.example.Question_01;
+
+public class Car extends Vehicles {
+    double ownerCost;
+    int warranty;
+    int seats;
+    String fuelType;
+}
+
+package org.example.Question_01;
+
+public class Bike extends Vehicles{
+    int cylinder;
+    int gear;
+    String cooling;
+    String wheel;
+    int tank;
+}
+
+package org.example.Question_01;
+
+public class Audi extends Car{
+    String model;
+}
+
+package org.example.Question_01;
+
+public class Ford  extends  Car{
+    String model;
+}
+
+package org.example.Question_01;
+
+public class Bajaj extends Bike{
+    String makeType;
+}
+
+package org.example.Question_01;
+
+public class Tvs extends Bike{
+    String makeType;
+}
+
+package org.example.Question_01;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter your choice 1. FOR CAR 2. FOR BIKE");
+        int choice = in.nextInt();
+
+        switch (choice) {
+            case 1:
+                System.out.println("Enter 1. FOR AUDI 2. FOR FORD");
+                int ch = in.nextInt();
+                System.out.println();
+
+                switch (ch) {
+                    case 1:
+                        Audi a = new Audi();
+                        a.model = "a8";
+                        a.mileage = 20;
+                        a.price = 500000;
+                        a.ownerCost = 450000;
+                        a.warranty = 2;
+                        a.fuelType = "petrol";
+                        a.seats = 4;
+
+                        System.out.println("Model : " + a.model);
+                        System.out.println("Mileage : " + a.mileage);
+                        System.out.println("Price : " + a.price);
+                        System.out.println("Cost : " + a.ownerCost);
+                        System.out.println("Warranty : " + a.warranty);
+                        System.out.println("Fuel Type : " + a.fuelType);
+                        System.out.println("Seats : " + a.seats);
+                        System.out.println();
+                        break;
+
+                    case 2:
+                        Ford f = new Ford();
+                        f.model = "Mustang";
+                        f.mileage = 15;
+                        f.price = 300000;
+                        f.ownerCost = 200000;
+                        f.warranty = 1;
+                        f.fuelType = "Diesel";
+                        f.seats = 4;
+
+                        System.out.println("Model : " + f.model);
+                        System.out.println("Mileage : " + f.mileage);
+                        System.out.println("Price : " + f.price);
+                        System.out.println("Cost : " + f.ownerCost);
+                        System.out.println("Warranty : " + f.warranty);
+                        System.out.println("Fuel Type : " + f.fuelType);
+                        System.out.println("Seats : " + f.seats);
+                        System.out.println();
+                        break;
+                }
+                break;
+
+            case 2:
+
+                System.out.println("Enter 1. FOR BAJAJ 2. FOR TVS");
+                int n = in.nextInt();
+                System.out.println();
+
+                switch (n) {
+                    case 1:
+                        Bajaj b = new Bajaj();
+                        b.makeType = "Pulsar";
+                        b.mileage = 25;
+                        b.price = 200000;
+                        b.cylinder= 1;
+                        b.gear = 5;
+                        b.cooling = "air";
+                        b.wheel = "alloy";
+                        b.tank = 15;
+
+                        System.out.println("Model : " + b.makeType);
+                        System.out.println("Mileage : " + b.mileage);
+                        System.out.println("Price : " + b.price);
+                        System.out.println("Cylinder : " + b.cylinder);
+                        System.out.println("Gear : " + b.gear);
+                        System.out.println("Cooling : " + b.cooling);
+                        System.out.println("Wheel : " + b.wheel);
+                        System.out.println("Tank : " + b.tank);
+                        System.out.println();
+                        break;
+
+                    case 2:
+                        Tvs t = new Tvs();
+                        t.makeType = "Apache";
+                        t.mileage = 25;
+                        t.price = 200000;
+                        t.cylinder = 1;
+                        t.gear = 6;
+                        t.cooling = "liquid";
+                        t.wheel = "alloy";
+                        t.tank = 15;
+
+                        System.out.println("Model : " + t.makeType);
+                        System.out.println("Mileage : " + t.mileage);
+                        System.out.println("Price : " + t.price);
+                        System.out.println("Cylinder : " + t.cylinder);
+                        System.out.println("Gear : " + t.gear);
+                        System.out.println("Cooling : " + t.cooling);
+                        System.out.println("Wheel : " + t.wheel);
+                        System.out.println("Tank : " + t.tank);
+                        System.out.println();
+                        break;
+                }
+        }
+    }
+}
+
+
+/* 2. Construct a base class called twoD contains x and y and methods to read and write the x and y. 
+Create another class called threeD which is derived from twoD and also contains z and write methods to read and write z. 
+Also write a method to find the distance of two threeD Points.
+sqrt((x2-x1)^2+(y2-y1)^2+(z2-z1)^2)
+In main:
+Create one ThreeD object using the default constructor.
+Use the setters to set x, y, and z.
+Create the second ThreeD object using the constructor with three arguments.
+in the TwoD class:
+Add a cout statement to the TwoD default constructor with a message "TwoD default constructor"
+Add a cout statement to other TwoD constructor with a message "TwoD constructor with two arguments" */
+
+public class TwoD {
+    private int x;
+    private int y;
+
+    public TwoD() {
+        System.out.println("TwoD default constructor");
+    }
+
+    public TwoD(int x, int y) {
+        System.out.println("TwoD constructor with two arguments");
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+}
+
+package org.example.Question_02;
+
+public class ThreeD extends TwoD{
+    private int z;
+
+    public void setZ(int z) {
+        this.z = z;
+    }
+
+    public int getZ() {
+        return z;
+    }
+
+    public ThreeD() {
+        super();
+    }
+
+    public ThreeD(int x, int y, int z) {
+        super(x, y);
+        setX(x);
+        setY(y);
+        this.z = z;
+    }
+
+    public void distance(ThreeD d) {
+       int x = this.getX() - d.getX();
+       int y = this.getY() - d.getY();
+       int z = this.getZ() - d.getZ();
+
+       double sq = Math.sqrt(x * x + y * y + z * z);
+
+        System.out.println(sq);
+    }
+}
+
+package org.example.Question_02;
+
+public class Main {
+    public static void main(String[] args) {
+        ThreeD d1 = new ThreeD();
+        d1.setX(1);
+        d1.setY(2);
+        d1.setZ(3);
+
+        ThreeD d2 = new ThreeD(3, 5, 7);
+
+        d1.distance(d2);
+    }
+}
+
+
+/* 3. A class Point is declared as follows:
+class Point{
+public:
+Point(){int=0;int=0;} //default constructor
+void setPoint(int,int); //set coordinates
+int getX() const {return x;} //get x coordinates
+int getY() const {return y;} //get y coordinates
+void printPoint(); // print (x,y) coordinates
+private int x;
+private int y;
+};
+Write the implementation of the class Point in the same file.
+Then, declare a class called Circle that is derived from the class Point. 
+The class Circle has public member functions Circle (constructor), setRadius(), getRadius() and area() and one private data member radius. 
+The class Circle indirectly uses private member x and y of class Point to store the coordinate of the center of the circle. T
+he class Circle also checks to make sure the radius value is a positive number, otherwise it is set to default value 1.
+Note: The private members of class Point can only be indirectly accessed by class Circle using public methods of class point.
+Implement the class Circle and write a driver program to test the class Circle. An example of the output of the driver program is.
+Enter x: 2
+Enter y: 2
+Enter radius: 1
+Circle center is (2,2)
+Radius is 1
+Area is 3.14 */
+
+package org.example.Question_03;
+
+public class Circle extends Point{
+    private int radius;
+
+    public Circle(int x, int y, int radius) {
+        setAll(x, y);
+        setRadius(radius);
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        if(radius > 0) {
+            this.radius = radius;
+        } else {
+            this.radius = -1;
+        }
+    }
+
+    public double area() {
+        return 3.14 * radius * radius;
+    }
+}
+
+package org.example.Question_03;
+
+public class Point {
+    private int x;
+    private int y;
+
+    public Point() {
+        x = 0;
+        y = 0;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setAll(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void print() {
+        System.out.println("Circle center is (" + x  + " , " + y +")");
+    }
+}
+
+package org.example.Question_03;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        System.out.print("Enter x : ");
+        int x = in.nextInt();
+
+        System.out.print("Enter y : ");
+        int y = in.nextInt();
+
+        System.out.print("Enter Radius : ");
+        int radius = in.nextInt();
+
+
+        Circle c = new Circle(x, y, radius);
+        c.setRadius(0);
+
+        c.print();
+        System.out.println("Radius is : " + c.getRadius());
+        System.out.println("Area is : " + c.area());
+
+    }
+}
+
+
+/* 4. Write a program to illustrate that Classes cannot be used for multiple Inheritance. */
+
+package org.example.Question_04;
+
+public class A {
+    void display1() {
+        System.out.println("Class A");
+    }
+}
+
+package org.example.Question_04;
+
+public class B {
+    void display2() {
+        System.out.println("Class B");
+    }
+}
+
+package org.example.Question_04;
+
+public class C extends A //, B
+{
+    void display3 () {
+        System.out.println("Class C");
+    }
+}
+
+package org.example.Question_04;
+
+public class Main {
+    public static void main(String[] args) {
+        C c = new C();
+
+        c.display1();
+        //c.display2();
+        c.display3();
+    }
+}
+
+
+/* 5. Create a class named Shape with a method that prints "This is a shape". 
+Create another class named Polygon inheriting the Shape class with the same method that prints "Polygon is a shape". 
+Create two other classes named Rectangle and Triangle having the same method which prints "Rectangle is a polygon" and "Triangle is a polygon" respectively. 
+Again, make another class named Square having the same method which prints "Square is a rectangle".
+Now, try calling the method by the object of each of these classes. */
+package org.example.Question_05;
+
+public class Shape {
+    public void print() {
+        System.out.println("This is a Shape.");
+    }
+}
+
+package org.example.Question_05;
+
+public class Polygon extends Shape{
+    public void print() {
+        System.out.println("Polygon is a shape.");
+    }
+}
+
+
+package org.example.Question_05;
+
+public class Rectangle extends Polygon {
+    public void print () {
+        System.out.println("Rectangle is a polygon.");
+    }
+}
+
+package org.example.Question_05;
+
+public class Square extends Rectangle{
+    public void print() {
+        System.out.println("Square is rectangle");
+    }
+}
+
+package org.example.Question_05;
+
+public class Triangle extends Polygon{
+    public void print() {
+        System.out.println("Triangle is a Polygon");
+    }
+}
+
+package org.example.Question_05;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Shape s = new Shape();
+        s.print();
+
+        Polygon p = new Polygon();
+        p.print();
+
+        Triangle t = new Triangle();
+        t.print();
+
+        Rectangle r = new Rectangle();
+        r.print();
+
+        Square s1 = new Square();
+        s1.print();
+    }
+}
+
+
+/* 6. Design a simple inventory system in Java using object-oriented principles that demonstrates the use of static variables and object containment.
+Create two classes:
+---Store
+---Product
+Requirements:
+The Store class should have:
+a. storeName and storeLocation as static variables since they are common to all products in the store.
+b. A static method setStoreDetails(String name, String location) to initialize the static variables.
+c. A static method displayStoreDetails() to print store details.
+d. A list to maintain multiple Product objects (i.e., the store contains many products).
+e. A method addProduct(Product product) to add products to the store.
+f. A method displayAllProducts() to display details of all products.
+The Product class should have:
+a. Product ID, name, price, and quantity as instance variables.
+b. A constructor to initialize these fields.
+c. A method displayProduct() to show product details.
+Task: Implement the above classes and demonstrate their use in the main() method by:
+a. Setting store details once.
+b. Creating multiple product objects.
+c. Adding them to the store.
+d. Displaying store and product information.
+Also Check how many .class files are generated. */
+
+
+package org.example.Question_06;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Store {
+    static String storeName;
+    static String storeLocation;
+
+    private List<Product> list = new ArrayList<>();
+
+    public static void setStoreLocation(String storeLocation) {
+        Store.storeLocation = storeLocation;
+    }
+
+    public static void setStoreName(String storeName) {
+        Store.storeName = storeName;
+    }
+
+    public static void setStoreDetails(String name, String location) {
+        storeName = name;
+        storeLocation= location;
+    }
+
+    static void displayStore() {
+        System.out.println("Store Name : " + storeName);
+        System.out.println("Store Location : " + storeLocation);
+    }
+
+    public void add(Product p){
+        list.add(p);
+    }
+
+    public void displayAll() {
+        for (Product f : list) {
+            f.displayProd();
+            System.out.println();
+        }
+    }
+}
+
+package org.example.Question_06;
+
+public class Product extends Store{
+    int productId;
+    String name;
+    int price;
+    int quantity;
+
+    public Product(int productId, String name, int price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+
+    public void displayProd() {
+        System.out.println("Product Id : " + productId);
+        System.out.println("Product Name : " + name);
+        System.out.println("Product Price :" + price);
+        System.out.println("Product Quantity : " + quantity);
+    }
+}
+
+package org.example.Question_06;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Store.setStoreDetails("StarBucks", "Chennai");
+
+        Product p = new Product(1, "Caramel", 100, 1);
+        Product p1 = new Product(2, "Hot Chocolate", 100, 1);
+        Product p2 = new Product(3, "Frappuccino", 100, 1);
+
+        Store store = new Store();
+
+        store.add(p);
+        store.add(p1);
+        store.add(p2);
+
+        Store.displayStore();
+        System.out.println();
+        store.displayAll();
+
+
+    }
+}
+
+
+/* 7. Design and implement a custom Java class named MyString that mimics the behavior of Java’s built-in String class. 
+Your class should store character data internally (e.g., using a char[] or String as input) and should provide the following string methods,
+1. int length() – Returns the number of characters.
+2. char charAt(int index) – Returns the character at the specified index.
+3. boolean equals(MyString other) – Checks if two MyString objects are equal.
+4. MyString toUpperCase() – Returns a new string with all characters in uppercase.
+5. MyString toLowerCase() – Returns a new string with all characters in lowercase.
+6. MyString substring(int start, int end) – Returns a substring from start to end-1.
+7. MyString concat(MyString other) – Concatenates another string to the current one.
+8. boolean contains(MyString sub) – Checks if a substring exists.
+9. int indexOf(char ch) – Returns the index of the first occurrence of the character.
+10. MyString replace(char oldChar, char newChar) – Replaces all occurrences of a character.
+* Implement proper constructors, including one that takes a char[] or String as input.
+* Avoid using any built-in String methods to perform the operations internally.
+* Write a main method to demonstrate the working of your MyString class. */
+
+package org.example.Question_07;
+
+public class MyString {
+    final char[] carr;
+
+    public MyString(String string) {
+        this.carr = string.toCharArray();
+    }
+
+    int length() {
+        return carr.length;
+    }
+
+    char charAt(int index) {
+            return carr[index];
+    }
+
+    boolean isequals(String str) {
+        char[] newArr = str.toCharArray();
+
+        if(carr.length != newArr.length) {
+            return false;
+        }
+
+        for (int i = 0; i < carr.length; i++) {
+            if(carr[i] != newArr[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    String substr(int start, int end) {
+        String substr = " ";
+
+        for (int i = start; i < end; i++) {
+            substr = substr + carr[i];
+        }
+        return substr;
+    }
+
+    String concat (String str) {
+        String previous = " ";
+        for (int i = 0; i < carr.length; i++) {
+            previous = previous + carr[i];
+        }
+
+        return previous + str;
+    }
+
+    String toUpper() {
+        String upper = "";
+        for (int i = 0; i < carr.length; i++) {
+            if(carr[i] >= 'a' && carr[i] <= 'z') {
+                upper = upper + (char)(carr[i] - 32);
+            } else {
+                upper = upper + carr[i];
+            }
+        }
+        return upper;
+    }
+
+    String toLower() {
+        String lower = "";
+        for(int i = 0; i < carr.length; i++) {
+            if(carr[i] >= 'A' && carr[i] <= 'Z') {
+                lower = lower + (char)(carr[i] + 32);
+            } else {
+                lower = lower + carr[i];
+            }
+        }
+        return lower;
+    }
+
+    boolean conta(String str) {
+        char[] ch = str.toCharArray();
+        if(ch.length >  carr.length) {
+            return false;
+        }
+        int i= 0;
+        int j = 0;
+
+        while(i < carr.length) {
+            if (carr[i] == ch[j]) {
+                i++;
+                j++;
+                if (j == ch.length) {
+                    return true;
+                }
+            } else {
+                i = i - j + 1;
+                j = 0;
+            }
+        }
+        return false;
+    }
+
+    int indexOf(char ch) {
+        for (int i = 0; i < carr.length; i++) {
+            if(carr[i] == ch) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    String replace(char old, char newChar) {
+        for (int i = 0; i < carr.length; i++) {
+            if(carr[i] == old) {
+                carr[i] = newChar;
+            }
+        }
+
+        String alter = " ";
+        for (char c : carr) {
+            alter = alter  + c;
+        }
+        return alter;
+    }
+}
+
+package org.example.Question_07;
+
+public class Main {
+    public static void main(String[] args) {
+        MyString string = new MyString("videogame");
+
+        System.out.println("Length : " + string.length());
+        System.out.println("Char At : " + string.charAt(1));
+        System.out.println("Equal or not : " + string.isequals("VideoGam"));
+        System.out.println("TO Upper : " + string.toUpper());
+        System.out.println("To Lower : " + string.toLower());
+        System.out.println("Contains : " + string.conta("ga"));
+        System.out.println("Substring : " + string.substr(2, 4));
+        System.out.println("Concatenation : " + string.concat("-LanaDelRay"));
+        System.out.println("Index of : " + string.indexOf('e'));
+        System.out.println("Replace : " + string.replace( 'a', 'v'));
+    }
+}
+
+
+/* 8. Design a calculator application using Java Inheritance.
+‌
+Create the following class hierarchy:
+‌
+--->BasicCalculator (Base class):
+Implement at least three basic arithmetic methods, such as:
+‌
+--->add(int a, int b)
+--->subtract(int a, int b)
+--->multiply(int a, int b)
+--->divide(int a, int b)
+‌
+--->AdvancedCalculator (Inherits from BasicCalculator):
+Add 3 to 4 advanced mathematical operations, such as:
+‌
+--->power(int base, int exponent)
+--->modulus(int a, int b)
+--->squareRoot(double number)
+‌
+--->ScientificCalculator (Inherits from AdvancedCalculator):
+Add scientific functions, such as:
+‌
+--->sin(double angle)
+--->cos(double angle)
+--->log(double value)
+--->exp(double value)
+* Demonstrate the use of inheritance by creating an object of ScientificCalculator and calling methods from all three levels of the class hierarchy.
+* Use appropriate access specifiers and method overrides where required.
+* Add a main() method to test all operations. */
+
+package org.example.Question_08;
+
+public class BasicCalculator {
+
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int sub(int a, int b) {
+        return a - b;
+    }
+
+    double multiply(int a, int b) {
+        return a * b;
+    }
+
+    double divide(int a, int b) {
+        return (double) a / b;
+    }
+}
+
+package org.example.Question_08;
+
+public class AdvanceCalculator {
+
+    double pow(int a, int exponential) {
+        return Math.pow(a, exponential);
+    }
+
+    double mod(int a, int b) {
+        return a % b;
+    }
+
+    double square(double a) {
+        return Math.sqrt(a);
+    }
+}
+
+package org.example.Question_08;
+
+public class ScientificCalculator {
+
+    double sin(double a) {
+        return Math.sin(a);
+    }
+
+    double cos(double a) {
+        return Math.cos(a);
+    }
+
+    double log(double a) {
+        return Math.log(a);
+    }
+
+    double exp(double a) {
+        return Math.exp(a);
+    }
+}
+
+package org.example.Question_08;
+
+public class Main {
+    public static void main(String[] args) {
+        BasicCalculator bc = new BasicCalculator();
+        System.out.println("Addition : " + bc.add(10, 2));
+        System.out.println("Subtraction :" + bc.sub(10, 2));
+        System.out.println("Multiplication : " + bc.multiply(10, 2));
+        System.out.println("Divide : " + bc.divide(10, 2));
+        System.out.println();
+
+        AdvanceCalculator ac = new AdvanceCalculator();
+        System.out.println("Power : " + ac.pow(8, 4));
+        System.out.println("Modulus : " + ac.mod(10, 2));
+        System.out.println("Square Root : " + ac.square(64));
+        System.out.println();
+
+        ScientificCalculator sc = new ScientificCalculator();
+        System.out.println("Sin : " + sc.sin(1));
+        System.out.println("Cos : " + sc.cos(1));
+        System.out.println("Log : " + sc.log(1));
+        System.out.println("Exponential : " + sc.exp(1));
+    }
+}
+
