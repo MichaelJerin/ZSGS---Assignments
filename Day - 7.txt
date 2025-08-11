@@ -1,0 +1,667 @@
+Day -> 7
+
+/* 1. All the banks operating in India are controlled by RBI. RBI has set a well defined guideline (e.g. minimum interest rate, minimum balance allowed, maximum withdrawal limit etc) which all banks must follow. For example, suppose RBI has set minimum interest rate applicable to a saving bank account to be 4% annually; however, banks are free to use 4% interest rate or to set any rates above it.
+Write a program to implement bank functionality in the above scenario. Note: Create few classes namely Customer, Account, RBI (Base Class) and few derived classes (SBI, ICICI, PNB etc). Assume and implement required member variables and methods in each class.
+Hint:
+Class Customer
+{
+//Personal Details ...
+// Few functions ...
+}
+Class Account
+{
+// Account Detail ...
+// Few functions ...
+}
+Class RBI
+{
+Customer c; //hasA relationship
+Account a; //hasA relationship
+..
+Public double GetInterestRate() { }
+Public double GetWithdrawalLimit() { }
+}
+Class SBI extends public RBI
+{
+//Use RBI functionality or define own functionality.
+}
+Class ICICI extends public RBI
+{
+//Use RBI functionality or define own functionality.
+} */
+
+package org.example.Question_01;
+
+public class Customer {
+    private String name;
+    private String phoneNo;
+    private String Address;
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+}
+
+package org.example.Question_01;
+
+public class Account {
+    private long accNo;
+    private String branch;
+    private double deposit;
+    private double balance;
+    private String accountType;
+
+    public long getAccNo() {
+        return accNo;
+    }
+
+    public void setAccNo(long accNo) {
+        this.accNo = accNo;
+    }
+
+    public double getDeposit() {
+        return deposit;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public boolean isWithdrawable(double withdraw, double withdrawalLimit) {
+        if(withdrawalLimit < withdraw) {
+            System.out.println("Amount Beyond the limit");
+            return false;
+        }
+
+        if(withdraw > balance) {
+            System.out.println("Insufficient Balance");
+            return false;
+        }
+
+        setBalance(getBalance() - withdraw);
+        System.out.println(withdraw + " Amount Withdraw Successfully");
+        return true;
+    }
+}
+
+package org.example.Question_01;
+
+abstract public class RBI {
+
+    Customer c;
+    Account a;
+
+    public abstract double getInterestRate();
+    public abstract double getWithdrawalLimit();
+}
+
+package org.example.Question_01;
+
+public class SBI extends RBI{
+
+    public SBI(Account a, Customer c) {
+        this.a = a;
+        this.c = c;
+    }
+
+    @Override
+    public double getInterestRate() {
+        return 5.0;
+    }
+
+    @Override
+    public double getWithdrawalLimit() {
+        return 10000;
+    }
+}
+
+package org.example.Question_01;
+
+public class PNB extends RBI{
+
+    public PNB(Account a, Customer c) {
+        this.a = a;
+        this.c = c;
+    }
+
+    @Override
+    public double getWithdrawalLimit() {
+        return 10000;
+    }
+
+    @Override
+    public double getInterestRate() {
+        return 4.0;
+    }
+}
+
+package org.example.Question_01;
+
+public class ICICI extends RBI{
+
+    public ICICI(Account a, Customer c) {
+        this.a = a;
+        this.c = c;
+    }
+
+    @Override
+    public double getInterestRate() {
+        return 6.0;
+    }
+
+    @Override
+    public double getWithdrawalLimit() {
+        return 10000;
+    }
+}
+
+package org.example.Question_01;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        Customer customer = new Customer();
+        Account account = new Account();
+        
+        System.out.print("Enter Account holder name : ");
+        String name = in.nextLine();
+        customer.setName(name);
+        
+        System.out.print("Enter Phone no : ");
+        String phone = in.nextLine();
+        customer.setPhoneNo(phone);
+
+        System.out.print("Enter Address : ");
+        String address = in.nextLine();
+        customer.setAddress(address);
+        
+        System.out.print("Enter Account numebr : ");
+        long accNo = in.nextLong();
+        account.setAccNo(accNo);
+        in.nextLine();
+        
+        System.out.print("Enter branch : ");
+        String branch = in.nextLine();
+        account.setBranch(branch);
+
+        System.out.print("Enter Account Type : ");
+        String type = in.nextLine();
+        account.setAccountType(type);
+
+        System.out.println("Enter 1. FOR SBI 2. FOR ICICI 3. PNB 4. FOR EXIT");
+        int ch = in.nextInt();
+
+        RBI bank = null;
+
+        switch (ch) {
+            case 1:
+                bank = new SBI(account, customer);
+                break;
+
+            case 2:
+                bank = new ICICI(account, customer);
+                break;
+
+            case 3:
+                bank = new PNB(account, customer);
+                break;
+
+            case 4:
+                System.exit(0);
+
+            default:
+                System.out.println("Select valid bank");
+        }
+
+        while(true) {
+            System.out.println("Enter 1. FOR DEPOSIT 2. FOR WITHDRAWAL 3. FOR DETAILS 4. FOR EXIT");
+            int choice = in.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Deposit : ");
+                    double deposit = in.nextLong();
+                    account.setBalance(account.getBalance() + deposit);
+                    System.out.println(deposit + " Amount Deposited Successfully");
+                    break;
+
+                case 2:
+                    System.out.print("Enter amount to Withdraw : ");
+                    double withdraw = in.nextInt();
+                    account.isWithdrawable(withdraw, bank.getWithdrawalLimit());
+                    break;
+
+                case 3:
+                    System.out.println();
+                    System.out.println("Details");
+                    System.out.println("Account Holder Name : " + customer.getName());
+                    System.out.println("Account Number : " + account.getAccNo());
+                    System.out.println("Interest Rate : " + bank.getInterestRate());
+                    System.out.println("Withdrawal limit : " + bank.getWithdrawalLimit());
+                    System.out.println("Balance : " + account.getBalance());
+                    System.out.println();
+                    break;
+
+                case 4:
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Enter Valid choice");
+            }
+        }
+    }
+}
+
+
+/* 2. Design a Payment Gateway System using an interface named PaymentMethod with a method pay(double amount). 
+Implement this interface in different classes like CreditCardPayment, DebitCardPayment, and UPIPayment. 
+Write a main class where you can accept payment using different methods. */
+
+package org.example.Question_02;
+
+public interface PaymentMethod {
+
+    void pay(double amount);
+    
+}
+
+package org.example.Question_02;
+
+public class CreditCard implements PaymentMethod {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Payed amount " + amount + " using Credit card");
+    }
+}
+
+package org.example.Question_02;
+
+public class DebitCard implements PaymentMethod {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Payed amount " + amount + " using Debit card");
+    }
+}
+
+package org.example.Question_02;
+
+public class UPI implements PaymentMethod {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Payed amount " + amount + " using UPI");
+    }
+}
+
+package org.example.Question_02;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter 1. FOR CREDIT CARD 2. FOR DEBIT CARD 3. FOR UPI");
+        int cho = in.nextInt();
+
+        System.out.print("Enter Amount: ");
+        double amount = in.nextDouble();
+
+        PaymentMethod pm;
+
+        switch (cho) {
+            case 1:
+                pm = new CreditCard();
+                pm.pay(amount);
+                break;
+
+            case 2:
+                pm = new DebitCard();
+                pm.pay(amount);
+                break;
+
+            case 3:
+                pm = new UPI();
+                pm.pay(amount);
+                break;
+
+            default:
+                System.out.println("Enter valid choice");
+        }
+    }
+}
+
+
+/* 3. Create a Java application to manage employees in a company. Define an abstract class Employee with a method calculateSalary(). 
+Then create two subclasses FullTimeEmployee and PartTimeEmployee that override calculateSalary() method based on their working type. 
+Demonstrate runtime polymorphism by calling calculateSalary() on different types of employees using the Employee reference. */
+
+package org.example.Question_03;
+
+public abstract class Employee {
+
+    public abstract double calculateSalary();
+
+}
+
+package org.example.Question_03;
+
+public class FullTimeEmployee extends Employee{
+    double salary;
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+
+    @Override
+    public double calculateSalary() {
+        return salary * 12;
+    }
+
+}
+
+package org.example.Question_03;
+
+public class PartTimeEmployee extends Employee {
+    double salary;
+    int time;
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    @Override
+    public double calculateSalary() {
+        return salary * time;
+    }
+}
+
+‌package org.example.Question_03;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.print("Enter Salary : ");
+        double salary = in.nextDouble();
+
+        FullTimeEmployee fe = new FullTimeEmployee();
+        fe.setSalary(salary);
+
+        System.out.println("Salary of Full-time Employee : " + fe.calculateSalary());
+
+        System.out.print("Enter Salary per hour : ");
+        double salary1 = in.nextDouble();
+        System.out.print("Enter time : ");
+        int time = in.nextInt();
+
+        PartTimeEmployee pe = new PartTimeEmployee();
+        pe.setSalary(salary1);
+        pe.setTime(time);
+
+        System.out.println("Salary of Part-time Employee : " + pe.calculateSalary());
+    }
+}
+
+
+/* 4. Create a Java application to manage employees in a company. 
+Define an Interface Employee with a method calculateSalary(). 
+Then create two subclasses FullTimeEmployee and PartTimeEmployee that override calculateSalary() method based on their working type. 
+Demonstrate runtime polymorphism by calling calculateSalary() on different types of employees using the Employee reference. */
+
+package org.example.Question_04;
+
+public interface Employees {
+
+    double calculateSalary();
+
+}
+
+package org.example.Question_04;
+
+public class FullTimeEmployee implements Employees {
+
+    double salary;
+
+    public FullTimeEmployee(double salary) {
+        this.salary = salary;
+    }
+
+    @Override
+    public double calculateSalary() {
+        return salary * 12;
+    }
+}
+
+package org.example.Question_04;
+
+public class PartTimeEmployee implements Employees {
+
+    double salary;
+    int time;
+
+    public PartTimeEmployee(double salary, int time) {
+        this.salary = salary;
+        this.time = time;
+    }
+
+    @Override
+    public double calculateSalary() {
+        return salary * time;
+    }
+}
+
+package org.example.Question_04;
+
+public class Main {
+    public static void main(String[] args) {
+        Employees pt = new PartTimeEmployee(200, 5);
+        System.out.println("Part Time Employee Salary  : " + pt.calculateSalary());
+
+        FullTimeEmployee ft = new FullTimeEmployee(1000);
+        System.out.println("Full Time Employee Salary : " + ft.calculateSalary());
+    }
+}
+
+
+/* 5. Develop a Java application for a Ticket Booking System that allows users to book tickets for different types of transportation modes such as Bus, Train, and Flight.
+Define a common interface or abstract class`Ticket with a method`bookTicket() that each transportation mode must implement differently.
+Create classes`BusTicket,`TrainTicket, and`FlightTicket that extend the abstract class or implement the interface.
+Demonstrate runtime polymorphism by calling the`bookTicket() method using a reference of the base class/interface. */
+
+package org.example.Question_05;
+
+public interface Ticket {
+    void bookTicket();
+}
+
+package org.example.Question_05;
+
+public class BusTicket implements Ticket{
+    String name;
+    String from;
+    String destination;
+    String travelDate;
+    int numberOfSeat;
+    String paymentMethod;
+
+    public BusTicket(String name, String from, String destination, int numberOfSeat, String travelDate, String paymentMethod) {
+        this.name = name;
+        this.from = from;
+        this.destination = destination;
+        this.numberOfSeat = numberOfSeat;
+        this.travelDate = travelDate;
+        this.paymentMethod = paymentMethod;
+    }
+
+    @Override
+    public void bookTicket() {
+        System.out.println();
+        System.out.println("Name : " + name);
+        System.out.println("From : " + from);
+        System.out.println("Destination : " + destination);
+        System.out.println("No. of Seats : " + numberOfSeat);
+        System.out.println("Travel Date : " + travelDate);
+        System.out.println("Payment Method : " + paymentMethod);
+    }
+}
+
+package org.example.Question_05;
+
+public class FlightTicket implements Ticket{
+    String name;
+    String from;
+    String destination;
+    String travelDate;
+    int numberOfSeat;
+    String paymentMethod;
+
+    public FlightTicket(String name, String from, String destination, int numberOfSeat, String travelDate, String paymentMethod) {
+        this.name = name;
+        this.from = from;
+        this.destination = destination;
+        this.numberOfSeat = numberOfSeat;
+        this.travelDate = travelDate;
+        this.paymentMethod = paymentMethod;
+    }
+
+    @Override
+    public void bookTicket() {
+        System.out.println();
+        System.out.println("Name : " + name);
+        System.out.println("From : " + from);
+        System.out.println("Destination : " + destination);
+        System.out.println("No. of Seats : " + numberOfSeat);
+        System.out.println("Travel Date : " + travelDate);
+        System.out.println("Payment Method : " + paymentMethod);
+    }
+}
+
+package org.example.Question_05;
+
+public class TrainTicket implements Ticket{
+    String name;
+    String from;
+    String destination;
+    String travelDate;
+    int numberOfSeat;
+    String paymentMethod;
+
+    public TrainTicket(String name, String from, String destination, int numberOfSeat, String travelDate, String paymentMethod) {
+        this.name = name;
+        this.from = from;
+        this.destination = destination;
+        this.numberOfSeat = numberOfSeat;
+        this.travelDate = travelDate;
+        this.paymentMethod = paymentMethod;
+    }
+
+    @Override
+    public void bookTicket() {
+        System.out.println();
+        System.out.println("Name : " + name);
+        System.out.println("From : " + from);
+        System.out.println("Destination : " + destination);
+        System.out.println("No. of Seats : " + numberOfSeat);
+        System.out.println("Travel Date : " + travelDate);
+        System.out.println("Payment Method : " + paymentMethod);
+    }
+}
+
+package org.example.Question_05;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter 1. FOR BUS 2. FOR TRAIN 3. FOR FLIGHT");
+        int ch = in.nextInt();
+        in.nextLine();
+
+        System.out.print("Enter Name : ");
+        String name = in.nextLine();
+        System.out.print("Enter From : ");
+        String from = in.nextLine();
+        System.out.print("Enter Destination : ");
+        String destination = in.nextLine();
+        System.out.print("Enter No. of Tickets : ");
+        int numberOfSeat = in.nextInt();
+        in.nextLine();
+        System.out.print("Enter Travel date : ");
+        String date = in.nextLine();
+        System.out.print("Payment Metod : ");
+        String method = in.nextLine();
+
+        Ticket t;
+        switch (ch) {
+            case 1:
+                t = new BusTicket(name, from, destination, numberOfSeat, date, method);
+                t.bookTicket();
+                break;
+
+            case 2:
+                t = new TrainTicket(name, from, destination, numberOfSeat, date, method);
+                t.bookTicket();
+                break;
+
+            case 3:
+                t = new FlightTicket(name, from, destination, numberOfSeat, date, method);
+                t.bookTicket();
+                break;
+
+            default:
+                System.out.println("Enter valid choice0");
+        }
+    }
+}
+
+
+
