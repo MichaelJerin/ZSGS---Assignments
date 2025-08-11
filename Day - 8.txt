@@ -1,0 +1,309 @@
+Day -> 8
+
+// 1. Illustrates with an example of using Singleton class.
+
+package org.example.Question_01;
+
+public class Singleton {
+    private static final Singleton singleton = new Singleton();
+
+    private Singleton() {
+        System.out.println("Singleton Constructor");
+    }
+
+    public static Singleton getSingleton() {
+        return singleton;
+    }
+
+    public void display() {
+        System.out.println("Singleton class");
+    }
+
+    public static void main(String[] args) {
+        Singleton obj1 = getSingleton();
+        Singleton obj2 = getSingleton();
+
+        obj1.display();
+        obj2.display();
+
+        if(obj1 == obj2) {
+            System.out.println("Both are same");
+        } else {
+            System.out.println("Not same");
+        }
+    }
+}
+
+
+// 2. Develop a Java program which illustrates the usage of Comparator Interface.
+
+package org.example;
+
+public class Camera {
+    int id;
+    String brand;
+
+    public Camera(int id, String brand) {
+        this.id = id;
+        this.brand = brand;
+    }
+    
+    public String getBrand() {
+        return brand;
+    }
+
+    public int getId() {
+        return id;
+    }
+}
+
+package org.example;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Question_02 {
+    public static void main(String[] args) {
+        List<Camera> list = new ArrayList<>();
+
+        list.add(new Camera(1, "Sony"));
+        list.add(new Camera(2, "Cannon"));
+        list.add(new Camera(3, "FujiFilm"));
+
+        Collections.sort(list, new SortByName());
+
+        for (Camera c : list) {
+            System.out.println("Id : " + c.getId());
+            System.out.println("Name : " + c.getBrand());
+            System.out.println();
+        }
+    }
+}
+
+package org.example;
+
+import java.util.Comparator;
+
+public class SortByName implements Comparator<Camera> {
+    @Override
+    public int compare(Camera o1, Camera o2) {
+        return o1.getBrand().compareTo(o2.getBrand());
+    }
+}
+
+
+// 3. Develop a Java program which illustrates the usage of Comparable Interface.
+
+
+package org.example;
+
+public class Characters implements Comparable<Characters> {
+    int id;
+    String name;
+
+    public Characters(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public int compareTo(Characters o) {
+        return this.id - o.id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+
+}
+
+package org.example;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class Question_03 {
+
+    public static void main(String[] args) {
+        List<Characters> list = new ArrayList<>();
+        list.add(new Characters(2, "Belly"));
+        list.add(new Characters(3, "Conrad"));
+        list.add(new Characters(1, "Susana"));
+        list.add(new Characters(2, "Laurel"));
+
+        Collections.sort(list);
+        for(Characters q : list) {
+            System.out.print("id : " + q.getId() + " ");
+            System.out.println(" Name : " + q.getName());
+        }
+    }
+}
+
+
+// 4. Get some strings through the command-line prompt and use an array to store and display them.
+
+package org.example.Question_04;
+
+public class Question_04 {
+    public static void main(String[] args) {
+        System.out.println(args[0]);
+        System.out.println(args[1]);
+        System.out.println(args[2]);
+        System.out.println(args[3]);
+    }
+}
+
+
+// 5. Write a program to illustrate the usage of clone() and find out what kind of copy it will make.
+
+package org.example;
+
+public class Question_05 implements Cloneable{
+    int id;
+    String name;
+    Price price;
+
+    public Question_05(int id, String name, Price price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Question_05 obj = (Question_05) super.clone();
+        obj.price = (Price) price.clone();
+        return obj;
+    }
+
+    public void display() {
+        System.out.println("ID : " + id + "\nName : " + name + "\nPrice : " + price.price);
+    }
+
+    public static void main(String[] args) throws CloneNotSupportedException {
+        Price price1 = new Price(1000);
+        Question_05 q = new Question_05(1, "Sony", price1);
+        Question_05 q1 = (Question_05) q.clone();
+
+        System.out.print("Orginal : ");
+        q.display();
+        System.out.println();
+        System.out.print("Cloned : ");
+        q1.display();
+        System.out.println();
+
+        q.price.price = 2000;
+
+        System.out.print("Orginal : ");
+        q.display();
+        System.out.println();
+        System.out.println("Cloned : ");
+        q1.display();
+    }
+}
+
+
+// 6. Develop a Java program to illustrate pass-by-value.
+
+package org.example;
+
+public class Question_06 {
+    public static void main(String[] args) {
+        int x = 5;
+        System.out.print("Inside the method : ");
+        change(x);
+        System.out.println(x);
+    }
+
+    public static void change(int x) {
+        x = 10;
+        System.out.println(x);
+    }
+}
+
+
+// 7. Develop a Java program to illustrate the usage of toString() method.
+
+package org.example;
+
+public class Question_07 {
+    int id;
+    String name;
+    int price;
+
+    public Question_07(int id, String name, int price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return ("id : " + id + "\nName : " + name + "\nPrice : " + price);
+    }
+
+    public static void main(String[] args) {
+        Question_07 q = new Question_07(1, "Sony", 100000);
+        Question_07 q1 = new Question_07(2, "FujiFilm", 150000);
+
+        System.out.println(q.toString());
+        System.out.println();
+        System.out.println(q1.toString());
+    }
+}
+
+
+/* 8. Write a Java program to demonstrate the concept of object cloning using the clone() method.
+--->Create a class Student with fields like name, rollNo, and department.
+--->Attempt to clone an object of this class using the clone() method.
+--->Catch and handle the CloneNotSupportedException if thrown.
+***Also find out and explain why the class must implement the Cloneable interface to avoid CloneNotSupportedException.
+-->Your program should clearly illustrate:
+a. What happens if Cloneable is not implemented
+b. How the error is resolved by implementing Cloneable */
+
+package org.example;
+
+public class Question_08 implements Cloneable{
+    int rollNo;
+    String name;
+    String department;
+
+    public Question_08( int rollNo, String name, String department) {
+        this.rollNo = rollNo;
+        this.name = name;
+        this.department = department;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    void display() {
+        System.out.println("roll no : " + rollNo + "\nName : " + name + "\nDepartment : " + department);
+    }
+
+    public static void main(String[] args) {
+        try {
+            Question_08 q = new Question_08(1, "Mike","Author");
+            Question_08 q1 = (Question_08) q.clone();
+
+            System.out.println("Original : ");
+            q.display();
+            System.out.println();
+            System.out.println("Cloned : ");
+            q1.display();
+        } catch (CloneNotSupportedException e) {
+            System.out.println("CloneNotSupportException : " + e.getMessage());
+        }
+    }
+}
+
