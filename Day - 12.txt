@@ -1,0 +1,398 @@
+Day -> 12
+
+/* 1. Write a Java program to demonstrate multithreading by extending the Thread class.
+--->Create a class MyThread that extends Thread.
+--->Override the run() method to display the thread name and a message five times with a delay of 500 milliseconds between prints.
+--->In the main() method, create two objects of MyThread and start them.
+--->Each thread prints its message independently, showing concurrent execution. */
+
+package org.example.Question_01;
+
+public class MyThread extends Thread {
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Thread Name : " + Thread.currentThread().getName());
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        MyThread t2 = new MyThread();
+
+        t1.start();
+        t2.start();
+    }
+}
+
+
+
+/* 2. Write a Java program to create a thread using the Runnable interface.
+--->Create a class TaskRunner that implements Runnable.
+--->Inside the run() method, print the current thread name and a task-specific message 10 times with a delay of 1000ms.
+--->In the main() method, create two Thread objects passing different TaskRunner instances and start both threads.
+--->The console should reflect the concurrent execution of both tasks. */
+
+package org.example.Question_02;
+
+import org.example.Question_01.MyThread;
+
+public class TaskRunner implements Runnable {
+    String message;
+
+    public TaskRunner (String message) {
+        this.message = message;
+    }
+
+    @Override
+    public void run() {
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Thread : " + Thread.currentThread().getName() + " Message : " + message);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.print("Interrupted");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        TaskRunner tr1 = new TaskRunner("One");
+        TaskRunner tr2 = new TaskRunner("Two");
+
+        Thread t1 = new Thread(tr1);
+        Thread t2 = new Thread(tr2);
+
+       t1.start();
+       t2.start();
+    }
+}
+
+
+
+/* 3. Write a Java program where one thread prints only even numbers and another prints only odd numbers from 1 to 20. 
+Synchronize the threads so that they print alternately (i.e., 1 2 3 4 ...). */
+
+package org.example.Question_03;
+
+public class EvenOdd {
+    int i = 1;
+    int end = 20;
+
+    public synchronized void even() {
+        while(i <= end) {
+            if(i % 2 == 1) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    System.out.println("Interrupted");
+                }
+            }
+            else {
+                System.out.println("Even : " + i);
+                i++;
+                notify();
+            }
+        }
+    }
+
+    public synchronized void odd() {
+        while(i <= end) {
+            if(i % 2 == 0) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    System.out.println("Interrupted");
+                }
+            }
+            else{
+                System.out.println("Odd : " + i);
+                i++;
+                notify();
+            }
+        }
+    }
+}
+
+package org.example.Question_03;
+
+public class Main {
+    public static void main(String[] args) {
+        EvenOdd evenodd = new EvenOdd();
+
+        Thread t1 = new Thread(() -> evenodd.odd());
+        Thread t2 = new Thread(() -> evenodd.even());
+
+        t1.start();
+        t2.start();
+    }
+}
+
+
+
+/* 4. Create a Java program with a shared counter. Spawn 3 threads, where each thread increments the counter 1000 times. 
+Use synchronization to avoid race conditions and display the final value. */
+
+package org.example.Question_04;
+
+public class Counter {
+    int count = 0;
+
+    public synchronized void  increment() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+
+package org.example.Question_04;
+
+public class CounterTask implements Runnable{
+    public Counter counter;
+
+    public CounterTask(Counter counter) {
+        this.counter = counter;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 1000; i++) {
+            counter.increment();
+        }
+    }
+}
+
+package org.example.Question_04;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Counter counter = new Counter();
+
+        CounterTask ct1 = new CounterTask(counter);
+        CounterTask ct2 = new CounterTask(counter);
+        CounterTask ct3 = new CounterTask(counter);
+
+        Thread t1 = new Thread(ct1);
+        Thread t2 = new Thread(ct2);
+        Thread t3 = new Thread(ct3);
+
+        t1.start();
+        t2.start();
+        t3.start();
+
+        t1.join();
+        t2.join();
+        t3.join();
+
+        System.out.println("Count : " + counter.getCount());
+    }
+}
+
+
+/* 5. Implement a basic producer-consumer problem using wait() and notify().
+--->Producer thread should add items to a shared buffer.
+--->Consumer thread should remove items.
+Ensure the buffer size is limited to 5 items.. Use Threads to implement the ATM machine, 
+where create thread to check the PIN number, another thread to perform the cash withdrawal, another one to check the balance amount and print the receipt. */
+
+package org.example.Question_05;
+
+public class SharedBuffer {
+
+    int[] buffer = new int[5];
+    int count = 0;
+
+    public synchronized void add(int item) throws InterruptedException {
+        while(count == buffer.length) {
+            wait();
+        }
+        buffer[count] = item;
+        count++;
+        System.out.println("Produced : " + item);
+        notify();
+    }
+
+    public synchronized void remove() throws InterruptedException {
+        while (count == 0) {
+            wait();
+        }
+        count--;
+        int item = buffer[count];
+        System.out.println("Consumed : " + item);
+        notify();
+    }
+}
+
+package org.example.Question_05;
+
+public class ProducerConsumer {
+    public static void main(String[] args) {
+
+        SharedBuffer b = new SharedBuffer();
+
+        Thread producer = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 1; i <= 5; i++) {
+                    try {
+                        b.add(i);
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        System.out.println(Thread.currentThread().getName() +" Thread Interrupted");
+                    }
+                }
+            }
+        });
+
+        Thread consumer = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i = 1; i <= 5; i++) {
+                    try {
+                        b.remove();
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        System.out.println(Thread.currentThread().getName() + " Thread Interrupted");
+                    }
+                }
+            }
+        });
+
+        producer.start();
+        consumer.start();
+
+    }
+}
+
+
+package org.example.Question_05;
+
+public class ATM {
+
+    int pin;
+    double withdrawal;
+    double balance = 10000;
+    boolean pinOk = false;
+    boolean withdrawalChk = false;
+
+    public ATM(int pin, double withdrawal) {
+        this.pin = pin;
+        this.withdrawal = withdrawal;
+    }
+
+    public synchronized void checkPin(int pin) {
+        try {
+            if(pin == 1234) {
+                System.out.println("Pin Correct");
+                System.out.println("Balance : " + balance);
+                pinOk = true;
+                notifyAll();
+            } else {
+                System.out.println("Wrong pin");
+            }
+        } catch (Exception e) {
+            System.out.println("Error Checking pin");
+        }
+    }
+
+    public synchronized void checkBalance() {
+        try {
+            while (!pinOk) {
+                wait();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Error checking balance");
+        }
+    }
+
+    public synchronized void withdrwal(double withdrawal) {
+        try {
+            while (!pinOk) {
+                wait();
+            }
+            if(withdrawal <= balance) {
+                balance -= withdrawal;
+                withdrawalChk = true;
+            } else {
+                System.out.println("Insufficient Balance");
+            }
+            notifyAll();
+        } catch (Exception e) {
+            System.out.println("Error on withdrawing");
+        }
+    }
+
+    public synchronized void receipt() {
+        try {
+            while (!withdrawalChk) {
+                wait();
+            }
+            if(pinOk && withdrawalChk) {
+                System.out.println("Withdrawal : " + withdrawal);
+                System.out.println("Balance : " + balance);
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Error on printing receipt");
+        }
+    }
+}
+
+package org.example.Question_05;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter pin : ");
+        int pin = in.nextInt();
+
+        System.out.print("Enter Withdrawal amount : ");
+        double withdrawal = in.nextDouble();
+
+        ATM atm = new ATM(pin, withdrawal);
+
+        Thread t1 = new Thread() {
+            @Override
+            public void run() {
+                atm.checkPin(pin);
+            }
+        };
+
+        Thread t2 = new Thread() {
+            @Override
+            public void run() {
+                atm.checkBalance();
+            }
+        };
+
+        Thread t3 = new Thread() {
+            @Override
+            public void run() {
+                atm.withdrwal(withdrawal);
+            }
+        };
+
+        Thread t4 = new Thread() {
+            @Override
+            public void run() {
+                atm.receipt();
+            }
+        };
+
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+    }
+}
